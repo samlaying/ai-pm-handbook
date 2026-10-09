@@ -2,7 +2,13 @@
 
 一个零框架、零构建的纯静态长页面站点。基于原始素材（`../raw.md`）整理，按 `../guide.md` 的内容大纲与「编辑杂志风」视觉规范搭建。核心案例：零食电商公司搭建 AI 客服，实现降本增效。
 
-## 使用方式
+## 线上地址
+
+**https://samlaying.github.io/ai-pm-handbook/** （GitHub Pages，国内可直连）
+
+更新内容后重新发布：改完文件 → `git add -A && git commit -m "..." && git push`，Pages 会自动重新构建（约 1 分钟）。
+
+## 本地预览
 
 双击打开 `index.html` 即可（经典脚本 + CSS 文件，无模块、无 fetch，`file://` 协议直开可用）。
 也可以起一个本地服务器：
@@ -15,6 +21,16 @@ python3 -m http.server 8080
 
 > 提示：修改内容后如果浏览器显示的还是旧版本，按一次 **Cmd+Shift+R**（强制刷新）即可；
 > 页面里的资源引用带 `?v=` 版本参数，改完关键文件后可以顺手把 `index.html` 里的版本号 +1。
+
+## 部署到其他平台
+
+整站就是 `index.html + css/ + js/` 三样东西，任何静态托管拖上去就能用：
+
+- **腾讯云 EdgeOne Pages**（国内访问最快）：控制台新建项目 → 直接拖入本文件夹或上传 `../ai-pm-handbook-site.zip`，默认域名免备案；
+- **Gitee Pages**：需实名认证后手动开启；
+- **Vercel / Netlify**：能部署，但 `.vercel.app` / `.netlify.app` 在国内不稳定，不推荐面向国内用户。
+
+字体已做异步加载：连不上 Google Fonts 时自动回退系统字体（宋体/苹方），不阻塞页面渲染。
 
 ## 目录结构（按职责解耦）
 
