@@ -1,0 +1,61 @@
+/* ==========================================================================
+   motion.css — 滚动动效：模块淡入 / 章节编号 parallax
+   同时尊重 prefers-reduced-motion：全部关闭
+   ========================================================================== */
+
+/* —— 模块进入视口：淡入 + 上移 —— */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+              transform var(--dur-reveal) var(--ease-out);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* —— 章节大编号的轻微视差（由 reveal.js 写入 --parallax 变量） —— */
+.module-num {
+  will-change: transform;
+  transform: translateY(var(--parallax, 0px));
+}
+
+/* —— 系统偏好：减少动态效果时，关闭一切动画 —— */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .module-num {
+    transform: none;
+  }
+
+  .progress-bar {
+    transition: none;
+  }
+
+  .flash-underline {
+    animation: none;
+  }
+
+  .term-drawer,
+  .term-backdrop {
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

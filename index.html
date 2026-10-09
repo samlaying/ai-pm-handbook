@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI 产品实战手册：以零食电商 AI 客服项目为例，九个模块走完从一句话需求到可运行 Demo 的完整流程。">
+  <title>AI 产品实战手册｜从 0 到 1 落地一个 AI 客服项目</title>
+
+  <!-- 字体：异步加载。国内网络连不上 Google Fonts 时不阻塞渲染，直接回退系统字体（见 tokens.css 的字体栈） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- 样式：按层拆分，tokens 是唯一定义变量的地方 -->
+  <link rel="stylesheet" href="css/tokens.css?v=5">
+  <link rel="stylesheet" href="css/base.css?v=5">
+  <link rel="stylesheet" href="css/layout.css?v=5">
+  <link rel="stylesheet" href="css/components.css?v=5">
+  <link rel="stylesheet" href="css/drawer.css?v=5">
+  <link rel="stylesheet" href="css/motion.css?v=5">
+  <link rel="stylesheet" href="css/print.css?v=5">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+
+  <!-- 顶部阅读进度条 -->
+  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- 顶部导航栏 -->
+  <header class="topbar">
+    <button class="menu-toggle" type="button" aria-label="打开目录" aria-expanded="false" aria-controls="sidebar">
+      <svg class="icon-open" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+        <path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <svg class="icon-close" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </button>
+    <span class="brand" id="brand">AI 产品实战手册</span>
+    <nav class="topnav" id="topNav" aria-label="模块快速导航"></nav>
+  </header>
+
+  <div class="layout">
+    <!-- 侧边栏目录（内容由 render.js 依据数据生成） -->
+    <aside class="sidebar" id="sidebar">
+      <div class="toc" id="toc"></div>
+    </aside>
+    <div class="backdrop" id="backdrop"></div>
+
+    <main class="main" id="main">
+      <!-- Hero 区域（文案来自 data/site.js） -->
+      <header class="hero" id="hero">
+        <div class="hero-inner">
+          <span class="kicker" id="heroKicker"></span>
+          <h1 id="heroTitle"></h1>
+          <p class="subtitle" id="heroSubtitle"></p>
+          <p class="lede" id="heroLede"></p>
+          <a class="btn" id="heroCta" href="#m01"></a>
+        </div>
+      </header>
+
+      <!-- 九个模块 + 总结（由 render.js 依据数据生成） -->
+      <div class="content" id="modules">
+        <noscript>
+          <p>本站内容由 JavaScript 渲染，请启用 JavaScript 后查看。内容源文件位于 <code>js/data/</code> 目录。</p>
+        </noscript>
+      </div>
+    </main>
+  </div>
+
+  <!-- 页脚（文案来自 data/site.js） -->
+  <footer class="footer">
+    <span id="footerLeft"></span>
+    <span id="footerRight"></span>
+  </footer>
+
+  <!-- 术语详解抽屉：点击正文划线词后从右侧滑入（内容由 ui/drawer.js 依据 terms.js 渲染） -->
+  <aside class="term-drawer" id="termDrawer" role="dialog" aria-modal="true" aria-labelledby="termDrawerTitle">
+    <header class="term-drawer-head">
+      <div>
+        <p class="term-drawer-kicker">术语详解</p>
+        <h4 id="termDrawerTitle"></h4>
+      </div>
+      <button class="term-drawer-close" type="button" aria-label="关闭详解">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </button>
+    </header>
+    <div class="term-drawer-body"></div>
+  </aside>
+  <div class="term-backdrop" id="termBackdrop"></div>
+
+  <!-- 脚本：lib → data → ui → main（经典脚本，file:// 直开可用） -->
+  <script src="js/lib/dom.js?v=5"></script>
+  <script src="js/lib/store.js?v=5"></script>
+  <script src="js/data/site.js?v=5"></script>
+  <script src="js/data/terms.js?v=5"></script>
+  <script src="js/data/module-01.js?v=5"></script>
+  <script src="js/data/module-02.js?v=5"></script>
+  <script src="js/data/module-03.js?v=5"></script>
+  <script src="js/data/module-04.js?v=5"></script>
+  <script src="js/data/module-05.js?v=5"></script>
+  <script src="js/data/module-06.js?v=5"></script>
+  <script src="js/data/module-07.js?v=5"></script>
+  <script src="js/data/module-08.js?v=5"></script>
+  <script src="js/data/module-09.js?v=5"></script>
+  <script src="js/data/summary.js?v=5"></script>
+  <script src="js/ui/render.js?v=5"></script>
+  <script src="js/ui/nav.js?v=5"></script>
+  <script src="js/ui/progress.js?v=5"></script>
+  <script src="js/ui/reveal.js?v=5"></script>
+  <script src="js/ui/drawer.js?v=5"></script>
+  <script src="js/ui/checklist.js?v=5"></script>
+  <script src="js/main.js?v=5"></script>
+</body>
+</html>

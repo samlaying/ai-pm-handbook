@@ -1,0 +1,456 @@
+/* ==========================================================================
+   components.css — 内容组件：模块头 / 小节 / 引语 / 表格 / 产出物 /
+   检查清单 / 警示块 / 代码块 / 术语气泡 / 按钮 / 练习卡
+   ========================================================================== */
+
+/* —— 模块章节头：大号编号沉在标题背后 —— */
+.module-head {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.module-num {
+  position: absolute;
+  top: -0.28em;
+  left: -0.06em;
+  z-index: 0;
+  font-family: var(--font-num);
+  font-size: 96px;
+  line-height: 1;
+  color: var(--accent-dim);
+  user-select: none;
+  pointer-events: none;
+  /* will-change 由 reveal.js 在滚动时驱动轻微 parallax */
+}
+
+.module-head .module-title {
+  position: relative;
+  z-index: 1;
+}
+
+.module-head .module-title .title-sep {
+  color: var(--accent);
+  font-weight: 400;
+  padding: 0 0.18em;
+}
+
+.module-head .module-lead {
+  position: relative;
+  z-index: 1;
+  margin: 14px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* 标题下的细分割线：约正文栏 60% 宽 */
+.module-rule {
+  width: 60%;
+  height: 1px;
+  margin: 26px 0 40px;
+  background: var(--line);
+  border: 0;
+}
+
+/* —— 模块核心问题：点名本模块要解决什么、解法是什么 —— */
+.module-problem {
+  margin: 0 0 52px;
+  padding: 20px 24px;
+  border-left: 3px solid var(--accent);
+  background: var(--code-bg);
+}
+
+.module-problem .problem-label {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.module-problem .problem-q {
+  margin: 8px 0 12px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.module-problem .problem-a {
+  margin: 0;
+  font-size: 15px;
+}
+
+.module-problem .problem-a::before {
+  content: "解法 ▸ ";
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* —— 小节点题：本节解决什么 —— */
+.section-goal {
+  margin: -6px 0 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.section-goal::before {
+  content: "解决什么 ▸ ";
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* —— 小节 —— */
+.subsection {
+  margin-bottom: 56px;
+}
+
+.subsection h3 {
+  margin-bottom: 18px;
+}
+
+.subsection h3 .sec-no {
+  color: var(--accent);
+  font-family: var(--font-num);
+  font-size: 0.72em;
+  letter-spacing: 0.06em;
+  margin-right: 10px;
+  vertical-align: 0.14em;
+}
+
+/* —— 首字下沉：每个模块第一段 —— */
+.drop-cap::first-letter {
+  float: left;
+  padding: 0.06em 0.12em 0 0;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 3em;
+  line-height: 1;
+}
+
+/* —— 金句引语区块 —— */
+.quote {
+  margin: 2em 0;
+  padding: 20px 26px;
+  border-left: 3px solid var(--accent);
+  background: var(--zebra);
+}
+
+.quote p {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.quote p:last-child {
+  margin-bottom: 0;
+}
+
+.quote cite {
+  display: block;
+  font-style: normal;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+}
+
+/* —— 表格：细分隔线风，无竖线无外框 —— */
+.table-scroll {
+  margin: 1.6em 0;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-small);
+  line-height: var(--lh-table);
+}
+
+thead th {
+  padding: 10px 14px 10px 0;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid var(--ink);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--zebra);
+}
+
+/* 表格第一列作为行标签时弱化加粗 */
+tbody td:first-child {
+  font-weight: 500;
+}
+
+/* —— 产出物卡片：绿色竖线 + ✓ 清单 —— */
+.deliverables {
+  margin: 2em 0;
+  padding: 18px 24px;
+  border-left: 3px solid var(--green);
+  background: var(--zebra);
+}
+
+.block-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.deliverables ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deliverables li {
+  position: relative;
+  padding-left: 28px;
+}
+
+.deliverables li + li {
+  margin-top: 6px;
+}
+
+.deliverables li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* —— 检查清单：复选框交互 —— */
+.checklist {
+  margin: 2em 0;
+}
+
+.checklist ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li {
+  border-bottom: 1px solid var(--line);
+}
+
+.checklist label {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 4px;
+  cursor: pointer;
+}
+
+.checklist input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(2px);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.checklist input[type="checkbox"]:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.checklist input[type="checkbox"]:checked::after {
+  content: "✓";
+  display: block;
+  margin: -2px 0 0 1px;
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.checklist input[type="checkbox"]:checked ~ .check-text {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: var(--line);
+}
+
+.checklist .check-text {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* —— 警示 / 安全红线块 —— */
+.warning {
+  margin: 2em 0;
+  padding: 18px 24px;
+  border-left: 3px solid var(--warn-ink);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.warning .block-label {
+  color: var(--warn-ink);
+}
+
+.warning p {
+  margin: 0;
+}
+
+/* —— 代码 / 提示词块 —— */
+.code-block {
+  margin: 1.6em 0;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  background: var(--code-bg);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.7;
+}
+
+.code-block .code-lang {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+/* —— 互动练习卡 —— */
+.exercise {
+  margin: 2em 0;
+  padding: 16px 24px;
+  border: 1px dashed var(--line);
+  border-radius: 2px;
+}
+
+.exercise p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: var(--fs-small);
+}
+
+/* —— 术语：虚线下划线的可点击词，点击后右侧滑出详解抽屉 —— */
+.term {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dashed var(--accent);
+  background: none;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.term:hover,
+.term:focus-visible {
+  color: var(--accent);
+  border-bottom-style: solid;
+}
+
+/* —— 按钮：橙色描边，hover 填充 —— */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* —— 锚点跳转后标题的橙色下划线闪烁提醒 —— */
+.flash-underline {
+  animation: flash-underline 300ms var(--ease-out) 2;
+}
+
+@keyframes flash-underline {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: inset 0 -6px 0 var(--accent-dim); }
+}
+
+/* —— 总结页 —— */
+.summary-head {
+  margin-top: 0;
+}
+
+.summary-section {
+  margin-bottom: 56px;
+}
+
+.summary-list {
+  counter-reset: deliverable;
+  margin: 1.2em 0;
+  padding: 0;
+  list-style: none;
+}
+
+.summary-list li {
+  position: relative;
+  counter-increment: deliverable;
+  padding: 14px 0 14px 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.summary-list li::before {
+  content: counter(deliverable, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-family: var(--font-num);
+  font-size: 22px;
+  color: var(--accent);
+}
+
+.summary-list .summary-from {
+  display: block;
+  font-size: var(--fs-label);
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+
+.ending {
+  margin: 64px 0 0;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--ink-soft);
+}

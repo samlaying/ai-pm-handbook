@@ -1,0 +1,84 @@
+/* ==========================================================================
+   print.css — 打印样式：隐藏导航外壳，保留全部内容，铺满纸面
+   ========================================================================== */
+
+@media print {
+  :root {
+    --bg: #fff;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 12pt;
+  }
+
+  .progress,
+  .topbar,
+  .sidebar,
+  .backdrop,
+  .skip-link,
+  .btn,
+  .reset-checks,
+  .term-drawer,
+  .term-backdrop {
+    display: none !important;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .content {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* 打印时所有模块直接可见，不做淡入 */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .module {
+    padding-top: 24pt;
+    page-break-inside: avoid;
+  }
+
+  .subsection,
+  .quote,
+  .deliverables,
+  .checklist,
+  .warning,
+  .code-block,
+  .exercise {
+    page-break-inside: avoid;
+  }
+
+  .table-scroll {
+    overflow: visible;
+  }
+
+  .hero {
+    padding: 0 0 24pt;
+  }
+
+  .hero h1 {
+    font-size: 24pt;
+  }
+
+  .module-num {
+    font-size: 64px;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .footer {
+    background: none;
+    color: #000;
+    border-top: 1px solid #ccc;
+  }
+}

@@ -1,0 +1,366 @@
+/* ==========================================================================
+   layout.css — 页面骨架：进度条 / 顶栏 / 侧边栏 / Hero / 主栏 / 页脚 / 移动端
+   ========================================================================== */
+
+/* —— 顶部阅读进度条 —— */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 120;
+  background: transparent;
+  pointer-events: none;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 80ms linear;
+}
+
+/* —— 顶部导航栏（Sticky） —— */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: var(--topbar-h);
+  padding: 0 var(--gutter);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar .brand {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.topnav {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.topnav a {
+  position: relative;
+  display: inline-block;
+  min-width: 34px;
+  padding: 6px 8px;
+  text-align: center;
+  font-family: var(--font-num);
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.topnav a::after {
+  content: attr(data-name);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  padding: 4px 10px;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(-2px);
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.topnav a:hover::after,
+.topnav a:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.topnav a.is-active {
+  color: var(--accent);
+}
+
+.topnav a.is-active::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* —— 汉堡按钮（仅移动端显示） —— */
+.menu-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.menu-toggle svg {
+  display: block;
+  margin: auto;
+}
+
+.menu-toggle .icon-close {
+  display: none;
+}
+
+body.drawer-open .menu-toggle .icon-open {
+  display: none;
+}
+
+body.drawer-open .menu-toggle .icon-close {
+  display: block;
+}
+
+/* —— 双栏布局：侧边栏 + 正文 —— */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+}
+
+/* —— 侧边栏目录 —— */
+.sidebar {
+  position: sticky;
+  top: var(--topbar-h);
+  height: calc(100vh - var(--topbar-h));
+  overflow-y: auto;
+  padding: 32px 12px 24px 20px;
+  border-right: 1px solid var(--line);
+}
+
+.toc-label {
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toc a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 10px;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  border-radius: 0 2px 2px 0;
+}
+
+.toc a .toc-num {
+  font-family: var(--font-num);
+  font-size: var(--fs-small);
+  letter-spacing: 0.04em;
+}
+
+.toc a:hover {
+  color: var(--accent);
+  background: var(--zebra);
+}
+
+.toc a.is-active {
+  color: var(--ink);
+  font-weight: 700;
+  border-left-color: var(--accent);
+  background: var(--zebra);
+}
+
+.sidebar .toc-actions {
+  margin-top: 24px;
+  padding: 0 10px;
+}
+
+.reset-checks {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: var(--fs-label);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.reset-checks:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* —— 主栏 —— */
+.main {
+  min-width: 0;
+}
+
+.content {
+  max-width: calc(var(--content-w) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter) 96px;
+}
+
+/* 各模块锚点定位时给顶栏留出空间 */
+.module {
+  scroll-margin-top: calc(var(--topbar-h) + 24px);
+  padding-top: 96px;
+}
+
+/* —— Hero 区域 —— */
+.hero {
+  padding: 104px var(--gutter) 88px;
+}
+
+.hero-inner {
+  max-width: calc(var(--content-w) + 2 * var(--gutter));
+  margin: 0 auto;
+}
+
+.hero .kicker {
+  display: block;
+  margin-bottom: 20px;
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.hero h1 {
+  max-width: 14em;
+  margin: 0 0 18px;
+  font-size: var(--fs-hero);
+  letter-spacing: -0.02em;
+}
+
+.hero .subtitle {
+  margin: 0 0 26px;
+  font-size: var(--fs-h3);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.hero .lede {
+  max-width: 36em;
+  margin: 0 0 36px;
+  color: var(--ink-soft);
+}
+
+/* —— 页脚 —— */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  justify-content: space-between;
+  padding: 36px var(--gutter);
+  background: var(--ink);
+  color: var(--footer-ink);
+  font-size: var(--fs-small);
+}
+
+.footer a {
+  color: var(--footer-ink);
+}
+
+/* ==========================================================================
+   移动端适配（≤ 960px）：侧边栏折叠为抽屉
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .topnav {
+    display: none;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
+    bottom: 0;
+    z-index: 90;
+    width: min(78vw, 300px);
+    height: auto;
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    transform: translateX(-100%);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  body.drawer-open .sidebar {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px rgba(20, 17, 14, 0.08);
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: var(--topbar-h) 0 0 0;
+    z-index: 80;
+    background: rgba(20, 17, 14, 0.24);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+
+  body.drawer-open .backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hero {
+    padding-top: 64px;
+    padding-bottom: 56px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .module {
+    padding-top: 64px;
+  }
+}
+
+/* 桌面端 backdrop 永不显示 */
+.backdrop {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .backdrop {
+    display: block;
+  }
+}

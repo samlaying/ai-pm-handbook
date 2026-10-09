@@ -1,0 +1,96 @@
+/* ==========================================================================
+   base.css — Reset 与基础排版：正文、标题、链接、表格的"纸感"底样
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* —— 链接：锚点 hover 用印刷橙 —— */
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* —— 标题：衬线，模拟印刷标题感 —— */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+p {
+  margin: 0 0 1.5em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: 700;
+}
+
+/* —— 键盘可达：focus 时橙色 outline —— */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* —— 跳转到正文（无障碍） —— */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  padding: 8px 16px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: var(--fs-small);
+  transition: top var(--dur-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* —— 无障碍：跟随系统关闭动画时，清掉所有过渡 —— */
+::selection {
+  background: var(--accent-dim);
+}
