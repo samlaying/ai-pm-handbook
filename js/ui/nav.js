@@ -27,6 +27,10 @@
 
         event.preventDefault();
 
+        /* 从名词页 / 术语抽屉里跳模块：先切回案例 Tab，并合上术语抽屉 */
+        if (H.ui.tabs) H.ui.tabs.show("case", { updateHash: false });
+        document.body.classList.remove("term-drawer-open");
+
         /* 移动端：点目录项后收起抽屉 */
         document.body.classList.remove("drawer-open");
         var toggle = document.querySelector(".menu-toggle");

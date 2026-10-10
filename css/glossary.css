@@ -1,0 +1,250 @@
+/* ==========================================================================
+   glossary.css — 页面 Tab 切换 + 「名词查询」页
+   Tab 状态由 body.tab-terms 类驱动；默认为「案例」Tab。
+   ========================================================================== */
+
+/* —— 顶栏 Tab 按钮（编辑杂志风的下划线 Tab） —— */
+.tabs {
+  display: flex;
+  gap: 2px;
+  margin-left: 4px;
+  height: 100%;
+}
+
+.tabs button {
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; /* 与顶栏底边线重合 */
+  background: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+.tabs button:hover {
+  color: var(--accent);
+}
+
+.tabs button.is-active {
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom-color: var(--accent);
+}
+
+/* ==========================================================================
+   Tab 状态切换：案例视图 / 名词视图
+   ========================================================================== */
+
+/* 名词 Tab 下隐藏案例专属的外壳 */
+body.tab-terms .hero,
+body.tab-terms #modules,
+body.tab-terms .sidebar {
+  display: none;
+}
+
+body.tab-terms .layout {
+  display: block; /* 释放侧栏占用的 220px 栅格列 */
+}
+
+/* 案例 Tab 下隐藏名词视图（默认态） */
+#glossaryView {
+  display: none;
+}
+
+body.tab-terms #glossaryView {
+  display: block;
+}
+
+/* ==========================================================================
+   「名词查询」页
+   ========================================================================== */
+
+.glossary {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 64px var(--gutter) 96px;
+}
+
+.glossary-head {
+  margin-bottom: 32px;
+}
+
+.glossary-head .kicker {
+  display: block;
+  margin-bottom: 14px;
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.glossary-head h2 {
+  margin: 0 0 12px;
+}
+
+.glossary-head .lede {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* —— 搜索 + 分类筛选 —— */
+.glossary-tools {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 0;
+  margin-bottom: 8px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.glossary-search {
+  flex: 1 1 220px;
+  max-width: 320px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.glossary-search:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.glossary-search::placeholder {
+  color: var(--ink-soft);
+}
+
+.cat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cat-chip {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast), background-color var(--dur-fast);
+}
+
+.cat-chip:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cat-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.glossary-count {
+  margin-left: auto;
+  font-size: var(--fs-label);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+/* —— 词条列表（编辑风：细线分隔，不用卡片） —— */
+.glossary-group {
+  margin-top: 28px;
+}
+
+.glossary-group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-h3);
+}
+
+.glossary-group h3 .group-count {
+  font-size: var(--fs-label);
+  font-weight: 400;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+
+.glossary-item {
+  display: block;
+  width: 100%;
+  padding: 14px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  text-align: left;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.glossary-item:hover,
+.glossary-item:focus-visible {
+  background: var(--zebra);
+}
+
+.glossary-item .item-name {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.glossary-item:hover .item-name {
+  color: var(--accent);
+}
+
+.glossary-item .item-def {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.glossary-empty {
+  margin-top: 48px;
+  padding: 32px 0;
+  text-align: center;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* —— 移动端 —— */
+@media (max-width: 960px) {
+  .glossary {
+    padding-top: 40px;
+  }
+
+  .tabs {
+    margin-left: auto;
+  }
+
+  .glossary-count {
+    margin-left: 0;
+    width: 100%;
+  }
+}

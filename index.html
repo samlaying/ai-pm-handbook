@@ -16,13 +16,14 @@
   </noscript>
 
   <!-- 样式：按层拆分，tokens 是唯一定义变量的地方 -->
-  <link rel="stylesheet" href="css/tokens.css?v=5">
-  <link rel="stylesheet" href="css/base.css?v=5">
-  <link rel="stylesheet" href="css/layout.css?v=5">
-  <link rel="stylesheet" href="css/components.css?v=5">
-  <link rel="stylesheet" href="css/drawer.css?v=5">
-  <link rel="stylesheet" href="css/motion.css?v=5">
-  <link rel="stylesheet" href="css/print.css?v=5">
+  <link rel="stylesheet" href="css/tokens.css?v=6">
+  <link rel="stylesheet" href="css/base.css?v=6">
+  <link rel="stylesheet" href="css/layout.css?v=6">
+  <link rel="stylesheet" href="css/components.css?v=6">
+  <link rel="stylesheet" href="css/drawer.css?v=6">
+  <link rel="stylesheet" href="css/glossary.css?v=6">
+  <link rel="stylesheet" href="css/motion.css?v=6">
+  <link rel="stylesheet" href="css/print.css?v=6">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
@@ -41,6 +42,10 @@
       </svg>
     </button>
     <span class="brand" id="brand">AI 产品实战手册</span>
+    <div class="tabs" role="tablist" aria-label="页面视图切换">
+      <button type="button" data-tab="case" class="is-active" aria-selected="true">案例</button>
+      <button type="button" data-tab="terms" aria-selected="false">名词</button>
+    </div>
     <nav class="topnav" id="topNav" aria-label="模块快速导航"></nav>
   </header>
 
@@ -69,6 +74,9 @@
           <p>本站内容由 JavaScript 渲染，请启用 JavaScript 后查看。内容源文件位于 <code>js/data/</code> 目录。</p>
         </noscript>
       </div>
+
+      <!-- 名词查询 Tab（内容由 ui/glossary.js 依据 terms.js 渲染） -->
+      <section id="glossaryView" aria-label="名词查询"></section>
     </main>
   </div>
 
@@ -96,26 +104,28 @@
   <div class="term-backdrop" id="termBackdrop"></div>
 
   <!-- 脚本：lib → data → ui → main（经典脚本，file:// 直开可用） -->
-  <script src="js/lib/dom.js?v=5"></script>
-  <script src="js/lib/store.js?v=5"></script>
-  <script src="js/data/site.js?v=5"></script>
-  <script src="js/data/terms.js?v=5"></script>
-  <script src="js/data/module-01.js?v=5"></script>
-  <script src="js/data/module-02.js?v=5"></script>
-  <script src="js/data/module-03.js?v=5"></script>
-  <script src="js/data/module-04.js?v=5"></script>
-  <script src="js/data/module-05.js?v=5"></script>
-  <script src="js/data/module-06.js?v=5"></script>
-  <script src="js/data/module-07.js?v=5"></script>
-  <script src="js/data/module-08.js?v=5"></script>
-  <script src="js/data/module-09.js?v=5"></script>
-  <script src="js/data/summary.js?v=5"></script>
-  <script src="js/ui/render.js?v=5"></script>
-  <script src="js/ui/nav.js?v=5"></script>
-  <script src="js/ui/progress.js?v=5"></script>
-  <script src="js/ui/reveal.js?v=5"></script>
-  <script src="js/ui/drawer.js?v=5"></script>
-  <script src="js/ui/checklist.js?v=5"></script>
-  <script src="js/main.js?v=5"></script>
+  <script src="js/lib/dom.js?v=6"></script>
+  <script src="js/lib/store.js?v=6"></script>
+  <script src="js/data/site.js?v=6"></script>
+  <script src="js/data/terms.js?v=6"></script>
+  <script src="js/data/module-01.js?v=6"></script>
+  <script src="js/data/module-02.js?v=6"></script>
+  <script src="js/data/module-03.js?v=6"></script>
+  <script src="js/data/module-04.js?v=6"></script>
+  <script src="js/data/module-05.js?v=6"></script>
+  <script src="js/data/module-06.js?v=6"></script>
+  <script src="js/data/module-07.js?v=6"></script>
+  <script src="js/data/module-08.js?v=6"></script>
+  <script src="js/data/module-09.js?v=6"></script>
+  <script src="js/data/summary.js?v=6"></script>
+  <script src="js/ui/render.js?v=6"></script>
+  <script src="js/ui/tabs.js?v=6"></script>
+  <script src="js/ui/glossary.js?v=6"></script>
+  <script src="js/ui/nav.js?v=6"></script>
+  <script src="js/ui/progress.js?v=6"></script>
+  <script src="js/ui/reveal.js?v=6"></script>
+  <script src="js/ui/drawer.js?v=6"></script>
+  <script src="js/ui/checklist.js?v=6"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

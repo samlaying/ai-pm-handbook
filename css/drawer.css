@@ -103,23 +103,77 @@ body.term-drawer-open {
   padding: 24px 28px 40px;
 }
 
+/* —— 三段式小节：名词定义 / 项目案例 / 技术解析和应用 —— */
+.term-section {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.term-section:last-child {
+  border-bottom: 0;
+}
+
+.term-section-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
 .term-drawer-body .term-def {
-  margin: 0 0 18px;
-  padding: 14px 18px;
+  margin: 0;
+  padding: 12px 16px;
   border-left: 3px solid var(--accent);
   background: var(--zebra);
   font-weight: 500;
 }
 
-.term-drawer-body .term-detail p {
+.term-drawer-body .term-case {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.term-drawer-body .term-tech p {
   margin: 0 0 1.2em;
   font-size: 15px;
   line-height: 1.9;
   color: var(--ink);
 }
 
-.term-drawer-body .term-detail p:last-child {
+.term-drawer-body .term-tech p:last-child {
   margin-bottom: 0;
+}
+
+/* —— 模块回跳链接 —— */
+.term-module-links {
+  margin: 12px 0 0;
+  font-size: var(--fs-small);
+  line-height: 2;
+}
+
+.module-links-label {
+  color: var(--ink-soft);
+}
+
+.term-module-link {
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: var(--fs-label);
+  color: var(--ink);
+  text-decoration: none;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.term-module-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* —— 相关术语词块 —— */

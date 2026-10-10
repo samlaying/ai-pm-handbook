@@ -47,6 +47,9 @@
     },
 
     update: function update() {
+      /* 尚未初始化时（如 Tab 在 boot 早期触发）直接跳过 */
+      if (!this.sections) return;
+
       /* —— 进度条：滚动比例 —— */
       if (this.bar) {
         var doc = document.documentElement;
@@ -55,17 +58,19 @@
         this.bar.style.width = (ratio * 100).toFixed(2) + "%";
       }
 
-      /* —— scroll-spy：当前阅读到的最后一个模块 —— */
+      /* —— scroll-spy：当前阅读到的最后一个模块（名词查询页不高亮） —— */
       var offset = window.innerHeight * 0.3;
       var activeId = null;
-      for (var i = 0; i < this.sections.length; i++) {
-        var section = this.sections[i];
-        if (section.getBoundingClientRect().top - offset <= 0) {
-          activeId = section.id;
+      if (!document.body.classList.contains("tab-terms")) {
+        for (var i = 0; i < this.sections.length; i++) {
+          var section = this.sections[i];
+          if (section.getBoundingClientRect().top - offset <= 0) {
+            activeId = section.id;
+          }
         }
+        /* 页面顶部（Hero 区域）不高亮任何模块 */
+        if (window.scrollY < window.innerHeight * 0.4) activeId = null;
       }
-      /* 页面顶部（Hero 区域）不高亮任何模块 */
-      if (window.scrollY < window.innerHeight * 0.4) activeId = null;
       if (activeId === this.currentId) return;
 
       this.currentId = activeId;
