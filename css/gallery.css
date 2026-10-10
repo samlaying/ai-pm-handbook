@@ -37,10 +37,16 @@ a { color: var(--ink); }
 }
 
 .topbar .brand {
+  display: inline-flex; align-items: center; gap: 9px;
   font-family: var(--font-serif); font-weight: 700;
   font-size: var(--fs-small); letter-spacing: 0.05em; white-space: nowrap;
   text-decoration: none;
 }
+
+.topbar .brand .logo-mark { color: var(--accent); flex: none; }
+
+.topbar .brand:hover .logo-mark { transform: rotate(90deg); }
+.topbar .brand .logo-mark { transition: transform 300ms var(--ease-out); }
 
 .topbar .topbar-note {
   margin-left: auto; font-size: var(--fs-label);

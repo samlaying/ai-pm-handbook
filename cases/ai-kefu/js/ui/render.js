@@ -258,7 +258,12 @@
       else node.textContent = value;
     }
 
-    if (site.name) fill("brand", site.name);
+    if (site.name) {
+      /* 品牌含 logo 标记时，文案写入内部 span，避免 textContent 覆盖整块标记 */
+      var brandText = document.getElementById("brandText");
+      if (brandText) brandText.textContent = site.name;
+      else fill("brand", site.name);
+    }
     fill("heroKicker", site.hero && site.hero.kicker);
     fill("heroTitle", site.hero && site.hero.title);
     fill("heroSubtitle", site.hero && site.hero.subtitle);

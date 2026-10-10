@@ -36,10 +36,32 @@
 }
 
 .topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-family: var(--font-serif);
   font-weight: 700;
   font-size: var(--fs-small);
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.topbar .brand .logo-mark {
+  color: var(--accent);
+  flex: none;
+  transition: transform 300ms var(--ease-out);
+}
+
+.topbar .brand:hover .logo-mark {
+  transform: rotate(90deg);
+}
+
+/* 当前案例面包屑：手册 / 案例名 */
+.topbar .case-crumb {
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
   white-space: nowrap;
 }
 
