@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI 产品实战手册：以零食电商 AI 客服项目为例，九个模块走完从一句话需求到可运行 Demo 的完整流程。">
-  <title>AI 产品实战手册｜从 0 到 1 落地一个 AI 客服项目</title>
+  <meta name="description" content="AI 产品实战画廊：一系列可以跟着做完的 AI 项目。首个案例——零食电商 AI 客服，从一句话需求到可运行 Demo。">
+  <title>AI 产品实战画廊｜一系列可以跟着做完的 AI 项目</title>
 
-  <!-- 字体：异步加载。国内网络连不上 Google Fonts 时不阻塞渲染，直接回退系统字体（见 tokens.css 的字体栈） -->
+  <!-- 字体：异步加载，连不上 Google Fonts 时回退系统字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" media="print" onload="this.media='all'"
@@ -15,117 +15,53 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- 样式：按层拆分，tokens 是唯一定义变量的地方 -->
-  <link rel="stylesheet" href="css/tokens.css?v=6">
-  <link rel="stylesheet" href="css/base.css?v=6">
-  <link rel="stylesheet" href="css/layout.css?v=6">
-  <link rel="stylesheet" href="css/components.css?v=6">
-  <link rel="stylesheet" href="css/drawer.css?v=6">
-  <link rel="stylesheet" href="css/glossary.css?v=6">
-  <link rel="stylesheet" href="css/motion.css?v=6">
-  <link rel="stylesheet" href="css/print.css?v=6">
+  <!-- 样式：画廊独用（案例站点在 cases/<slug>/ 下自成一体） -->
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/gallery.css?v=1">
 </head>
 <body>
-  <a class="skip-link" href="#main">跳到正文</a>
+  <a class="skip-link" href="#caseList">跳到案例列表</a>
 
-  <!-- 顶部阅读进度条 -->
-  <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
-
-  <!-- 顶部导航栏 -->
+  <!-- 顶栏 -->
   <header class="topbar">
-    <button class="menu-toggle" type="button" aria-label="打开目录" aria-expanded="false" aria-controls="sidebar">
-      <svg class="icon-open" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden="true">
-        <path d="M0 1h18M0 7h18M0 13h18" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
-      <svg class="icon-close" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/>
-      </svg>
-    </button>
-    <span class="brand" id="brand">AI 产品实战手册</span>
-    <div class="tabs" role="tablist" aria-label="页面视图切换">
-      <button type="button" data-tab="case" class="is-active" aria-selected="true">案例</button>
-      <button type="button" data-tab="terms" aria-selected="false">名词</button>
-    </div>
-    <nav class="topnav" id="topNav" aria-label="模块快速导航"></nav>
+    <a class="brand" href="./">AI 产品实战画廊</a>
+    <span class="topbar-note">CASE GALLERY · 案例系列</span>
   </header>
 
-  <div class="layout">
-    <!-- 侧边栏目录（内容由 render.js 依据数据生成） -->
-    <aside class="sidebar" id="sidebar">
-      <div class="toc" id="toc"></div>
-    </aside>
-    <div class="backdrop" id="backdrop"></div>
-
-    <main class="main" id="main">
-      <!-- Hero 区域（文案来自 data/site.js） -->
-      <header class="hero" id="hero">
-        <div class="hero-inner">
-          <span class="kicker" id="heroKicker"></span>
-          <h1 id="heroTitle"></h1>
-          <p class="subtitle" id="heroSubtitle"></p>
-          <p class="lede" id="heroLede"></p>
-          <a class="btn" id="heroCta" href="#m01"></a>
-        </div>
-      </header>
-
-      <!-- 九个模块 + 总结（由 render.js 依据数据生成） -->
-      <div class="content" id="modules">
-        <noscript>
-          <p>本站内容由 JavaScript 渲染，请启用 JavaScript 后查看。内容源文件位于 <code>js/data/</code> 目录。</p>
-        </noscript>
+  <main id="main">
+    <!-- Hero（统计由 ui/gallery.js 依据 cases.js 汇总） -->
+    <header class="hero">
+      <div class="hero-inner">
+        <span class="kicker">AI 产品实战方法论 · 案例画廊</span>
+        <h1>一系列可以跟着做完的 AI 项目</h1>
+        <p class="subtitle">每个案例，都是一个完整走通的 AI 产品项目</p>
+        <p class="lede">从一句模糊的业务指令，到可运行、可汇报的落地 Demo——同一个方法论，不同的行业与场景。选一个案例，以第一人称走进项目。</p>
+        <div class="hero-stats" id="heroStats"></div>
       </div>
+    </header>
 
-      <!-- 名词查询 Tab（内容由 ui/glossary.js 依据 terms.js 渲染） -->
-      <section id="glossaryView" aria-label="名词查询"></section>
-    </main>
-  </div>
+    <!-- 案例列表（内容由 ui/gallery.js 依据 js/data/cases.js 渲染） -->
+    <div class="section-head">
+      <h2>全部案例</h2>
+      <hr>
+    </div>
+    <section class="case-list" id="caseList" aria-label="案例列表">
+      <noscript>
+        <p>本页内容由 JavaScript 渲染，请启用 JavaScript 后查看。案例数据源位于 <code>js/data/cases.js</code>。</p>
+      </noscript>
+    </section>
+  </main>
 
-  <!-- 页脚（文案来自 data/site.js） -->
+  <!-- 页脚 -->
   <footer class="footer">
-    <span id="footerLeft"></span>
-    <span id="footerRight"></span>
+    <span>© 2025 AI 产品实战画廊</span>
+    <span>以真实项目为蓝本整理 · 仅供学习参考</span>
   </footer>
 
-  <!-- 术语详解抽屉：点击正文划线词后从右侧滑入（内容由 ui/drawer.js 依据 terms.js 渲染） -->
-  <aside class="term-drawer" id="termDrawer" role="dialog" aria-modal="true" aria-labelledby="termDrawerTitle">
-    <header class="term-drawer-head">
-      <div>
-        <p class="term-drawer-kicker">术语详解</p>
-        <h4 id="termDrawerTitle"></h4>
-      </div>
-      <button class="term-drawer-close" type="button" aria-label="关闭详解">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-      </button>
-    </header>
-    <div class="term-drawer-body"></div>
-  </aside>
-  <div class="term-backdrop" id="termBackdrop"></div>
-
-  <!-- 脚本：lib → data → ui → main（经典脚本，file:// 直开可用） -->
-  <script src="js/lib/dom.js?v=6"></script>
-  <script src="js/lib/store.js?v=6"></script>
-  <script src="js/data/site.js?v=6"></script>
-  <script src="js/data/terms.js?v=6"></script>
-  <script src="js/data/module-01.js?v=6"></script>
-  <script src="js/data/module-02.js?v=6"></script>
-  <script src="js/data/module-03.js?v=6"></script>
-  <script src="js/data/module-04.js?v=6"></script>
-  <script src="js/data/module-05.js?v=6"></script>
-  <script src="js/data/module-06.js?v=6"></script>
-  <script src="js/data/module-07.js?v=6"></script>
-  <script src="js/data/module-08.js?v=6"></script>
-  <script src="js/data/module-09.js?v=6"></script>
-  <script src="js/data/summary.js?v=6"></script>
-  <script src="js/ui/render.js?v=6"></script>
-  <script src="js/ui/tabs.js?v=6"></script>
-  <script src="js/ui/glossary.js?v=6"></script>
-  <script src="js/ui/nav.js?v=6"></script>
-  <script src="js/ui/progress.js?v=6"></script>
-  <script src="js/ui/reveal.js?v=6"></script>
-  <script src="js/ui/drawer.js?v=6"></script>
-  <script src="js/ui/checklist.js?v=6"></script>
-  <script src="js/main.js?v=6"></script>
+  <!-- 脚本：数据 → 渲染 → 启动 -->
+  <script src="js/data/cases.js?v=1"></script>
+  <script src="js/lib/dom.js"></script>
+  <script src="js/ui/gallery.js?v=1"></script>
+  <script src="js/main.js?v=1"></script>
 </body>
 </html>

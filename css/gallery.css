@@ -1,0 +1,199 @@
+/* ==========================================================================
+   gallery.css — 画廊首页：Hero + 统计 + 案例卡片列表
+   复用 tokens.css 的设计令牌，编辑杂志风（细线 / 衬线标题 / 印刷橙）
+   ========================================================================== */
+
+/* —— 基础 —— */
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+h1, h2 { font-family: var(--font-serif); font-weight: 700; margin: 0; }
+
+a { color: var(--ink); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.skip-link {
+  position: fixed; top: -100px; left: 16px; z-index: 200;
+  padding: 8px 16px; background: var(--ink); color: var(--bg);
+  font-size: var(--fs-small); transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: 8px; }
+
+/* —— 顶栏 —— */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  height: var(--topbar-h); padding: 0 var(--gutter);
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+
+.topbar .brand {
+  font-family: var(--font-serif); font-weight: 700;
+  font-size: var(--fs-small); letter-spacing: 0.05em; white-space: nowrap;
+  text-decoration: none;
+}
+
+.topbar .topbar-note {
+  margin-left: auto; font-size: var(--fs-label);
+  letter-spacing: 0.08em; color: var(--ink-soft);
+}
+
+/* —— Hero —— */
+.hero { padding: 96px var(--gutter) 56px; }
+
+.hero-inner { max-width: 860px; margin: 0 auto; }
+
+.hero .kicker {
+  display: block; margin-bottom: 20px;
+  font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--ink-soft);
+}
+
+.hero h1 { font-size: var(--fs-hero); letter-spacing: -0.02em; margin-bottom: 18px; }
+
+.hero .subtitle {
+  margin: 0 0 26px; font-size: 20px; font-weight: 500; color: var(--ink-soft);
+}
+
+.hero .lede { max-width: 36em; margin: 0 0 36px; color: var(--ink-soft); }
+
+/* —— 统计行 —— */
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 24px 48px;
+  padding: 20px 0 0; border-top: 1px solid var(--line);
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-num); font-size: 40px; line-height: 1;
+  color: var(--accent);
+}
+
+.stat-label { font-size: var(--fs-label); letter-spacing: 0.05em; color: var(--ink-soft); }
+
+/* —— 案例列表 —— */
+.case-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px var(--gutter) 104px;
+}
+
+.section-head {
+  max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter) 8px;
+}
+.section-head h2 { font-size: var(--fs-h3); font-family: var(--font-sans); }
+.section-head hr { width: 60%; height: 1px; border: 0; background: var(--line); margin: 18px 0 0; }
+
+/* —— 案例卡片：细线框、无阴影无大圆角 —— */
+.case-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 28px 28px 24px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.case-card:hover { border-color: var(--accent); }
+
+.case-card .card-num {
+  position: absolute; top: -0.18em; right: 10px;
+  font-family: var(--font-num); font-size: 88px; line-height: 1;
+  color: var(--accent-dim); user-select: none; pointer-events: none;
+}
+
+.card-kicker {
+  margin: 0 0 10px;
+  font-size: var(--fs-label); font-weight: 500;
+  letter-spacing: 0.1em; color: var(--accent);
+}
+
+.card-title { font-size: 30px; letter-spacing: -0.01em; margin: 0 0 8px; }
+
+.card-title-link { text-decoration: none; }
+.card-title-link:hover { color: var(--accent); }
+
+.card-subtitle { margin: 0 0 12px; font-weight: 500; color: var(--ink-soft); }
+
+.card-desc { margin: 0 0 16px; font-size: var(--fs-small); line-height: 1.8; color: var(--ink-soft); }
+
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+.card-tag {
+  padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px;
+  font-size: var(--fs-label); color: var(--ink-soft);
+}
+
+.card-stats { margin: auto 0 0; font-size: var(--fs-label); letter-spacing: 0.04em; color: var(--ink-soft); }
+
+.card-status {
+  position: absolute; top: 24px; right: 96px; z-index: 1;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-label); letter-spacing: 0.05em;
+}
+
+.card-status::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+}
+
+.card-status.is-live { color: var(--green); }
+
+.card-status.is-soon { color: var(--ink-soft); }
+
+.card-link {
+  margin-top: 18px; padding: 10px 22px;
+  border: 1.5px solid var(--accent); border-radius: 2px;
+  color: var(--accent); font-weight: 500; text-decoration: none;
+  align-self: flex-start;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.card-link:hover { background: var(--accent); color: #fff; }
+
+.card-link.is-disabled { border-style: dashed; border-color: var(--line); color: var(--ink-soft); cursor: default; }
+
+/* 规划中的卡片整体弱化 */
+.case-card.is-soon .card-title,
+.case-card.is-soon .card-subtitle { color: var(--ink-soft); }
+
+/* —— 页脚（与案例站一致） —— */
+.footer {
+  display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between;
+  padding: 36px var(--gutter); background: var(--ink); color: var(--footer-ink);
+  font-size: var(--fs-small);
+}
+
+/* —— 淡入动效 —— */
+.reveal {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* —— 移动端 —— */
+@media (max-width: 640px) {
+  :root { --gutter: 20px; }
+  .hero { padding-top: 56px; }
+  .hero h1 { font-size: 32px; }
+  .hero .subtitle { font-size: 17px; }
+  .case-card .card-num { font-size: 64px; }
+  .topbar .topbar-note { display: none; }
+}
+
+/* —— 减少动态效果 —— */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .case-card, .card-link { transition: none; }
+}

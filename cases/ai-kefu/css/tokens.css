@@ -1,0 +1,50 @@
+/* ==========================================================================
+   tokens.css — 设计令牌：色彩 / 字体 / 字号 / 间距
+   全站唯一定义处，其余文件只引用变量，不写裸色值。
+   ========================================================================== */
+
+:root {
+  /* —— 色彩系统 —— */
+  --bg: #FAF7F0;             /* 米白纸感底 */
+  --ink: #14110E;            /* 墨黑（主文字 / 页脚底） */
+  --ink-soft: #5C5347;       /* 暖灰（次要文字） */
+  --accent: #C5863C;         /* 印刷橙（唯一跳色：编号 / 金句边线 / 交互） */
+  --accent-dim: rgba(197, 134, 60, 0.2); /* 章节大编号 20% 半透明 */
+  --green: #849C4D;          /* 深绿：产出物 ✓ / 检查清单 / 成功标注 */
+  --line: #D4CCBF;           /* 浅褐细分割线 */
+  --zebra: #F5F0E8;          /* 表格斑马纹 / 引语底 */
+  --code-bg: #EFE8DC;        /* 代码 / 术语块底 */
+  --warn-bg: #F5E8E0;        /* 警示块底（淡橘） */
+  --warn-ink: #A0522D;       /* 警示块文字（深橘） */
+  --footer-ink: #FAF7F0;     /* 页脚浅色文字 */
+  --tooltip-bg: #14110E;
+  --tooltip-ink: #FAF7F0;
+
+  /* —— 字体系统 —— */
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, monospace;
+  --font-num: "Bebas Neue", "Inter Tight", "Arial Narrow", sans-serif;
+
+  /* —— 字号层级（全站不超过 5 级 + 标签） —— */
+  --fs-hero: 48px;   /* Hero 主标题 */
+  --fs-h2: 36px;     /* 模块标题 */
+  --fs-h3: 22px;     /* 小节标题 */
+  --fs-body: 16px;   /* 正文 */
+  --fs-small: 14px;  /* 表格文字 */
+  --fs-label: 12px;  /* 标签 / 术语 */
+
+  --lh-body: 1.85;
+  --lh-table: 1.7;
+
+  /* —— 布局尺寸 —— */
+  --content-w: 680px;        /* 正文窄栏最大宽度 */
+  --sidebar-w: 220px;
+  --topbar-h: 56px;
+  --gutter: 24px;
+
+  /* —— 动效 —— */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-reveal: 300ms;
+}
