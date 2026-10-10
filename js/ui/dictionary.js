@@ -1,5 +1,6 @@
 /* ==========================================================================
-   ui/dictionary.js — 独立名词词典页：搜索 + 分类筛选 + 分组列表
+   ui/dictionary.js — 独立名词词典页
+   布局：左侧分组导航栏（计数 + 筛选）+ 右侧双列词条网格
    数据源：站级 js/data/terms.js；点击词条由 ui/drawer.js 打开详解抽屉
    ========================================================================== */
 
@@ -16,45 +17,63 @@
   H.ui.dictionary = {
     init: function init() {
       this.list = document.getElementById("glossaryList");
+      this.rail = document.getElementById("dictRail");
       this.count = document.getElementById("glossaryCount");
       this.search = document.querySelector(".glossary-search");
-      this.chips = document.querySelector(".cat-chips");
-      if (!this.list || !H.terms) return;
+      if (!this.list || !this.rail || !H.terms) return;
 
       this.state = { query: "", cat: "全部" };
-      this.renderChips();
+      this.renderRail();
       this.bindTools();
       this.applyFilter();
     },
 
-    renderChips: function renderChips() {
+    /* —— 左侧分组导航：全部 + 各分类（带实时计数） —— */
+    renderRail: function renderRail() {
       var self = this;
       var cats = ["全部"].concat(H.termCats || []);
+
       cats.forEach(function (cat) {
-        self.chips.appendChild(el("button", {
-          class: "cat-chip" + (cat === "全部" ? " is-active" : ""),
-          text: cat,
-          attrs: { type: "button", "data-cat": cat }
-        }));
+        self.rail.appendChild(el("button", {
+          class: "rail-item" + (cat === "全部" ? " is-active" : ""),
+          attrs: { type: "button", "data-cat": cat, "aria-pressed": cat === "全部" ? "true" : "false" }
+        }, [
+          el("span", { class: "rail-name", text: cat }),
+          el("span", { class: "rail-count", attrs: { "data-cat-count": cat }, text: "" })
+        ]));
       });
     },
 
     bindTools: function bindTools() {
       var self = this;
+
       if (this.search) {
         this.search.addEventListener("input", function () {
           self.state.query = self.search.value.trim().toLowerCase();
           self.applyFilter();
         });
       }
-      this.chips.querySelectorAll(".cat-chip").forEach(function (chip) {
-        chip.addEventListener("click", function () {
-          self.state.cat = chip.dataset.cat;
-          self.chips.querySelectorAll(".cat-chip").forEach(function (c) {
-            c.classList.toggle("is-active", c === chip);
-          });
-          self.applyFilter();
+
+      /* 「/」快捷聚焦搜索 */
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) return;
+        var active = document.activeElement;
+        if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) return;
+        if (!self.search) return;
+        event.preventDefault();
+        self.search.focus();
+      });
+
+      this.rail.addEventListener("click", function (event) {
+        var item = event.target.closest(".rail-item");
+        if (!item) return;
+        self.state.cat = item.dataset.cat;
+        self.rail.querySelectorAll(".rail-item").forEach(function (n) {
+          var on = n === item;
+          n.classList.toggle("is-active", on);
+          n.setAttribute("aria-pressed", String(on));
         });
+        self.applyFilter();
       });
     },
 
@@ -77,42 +96,55 @@
         return haystack.indexOf(query) !== -1;
       });
 
-      var groups = {};
-      (H.termCats || []).forEach(function (c) { groups[c] = []; });
-      matched.forEach(function (item) {
-        var c = item.entry.cat || "其他";
-        (groups[c] = groups[c] || []).push(item);
-      });
+      /* 分组渲染（选择具体分类时只渲染该组，不重复组标题） */
+      var groups = [];
+      if (cat === "全部") {
+        (H.termCats || []).forEach(function (c) {
+          var items = matched.filter(function (item) { return item.entry.cat === c; });
+          if (items.length) groups.push({ cat: c, items: items });
+        });
+        var others = matched.filter(function (item) { return !item.entry.cat; });
+        if (others.length) groups.push({ cat: "其他", items: others });
+      } else {
+        groups.push({ cat: cat, items: matched });
+      }
 
-      Object.keys(groups).forEach(function (groupCat) {
-        var items = groups[groupCat];
-        if (!items.length) return;
-
-        /* 注：列表不参与淡入（筛选会重建 DOM） */
-        list.appendChild(el("section", { class: "glossary-group" }, [
+      groups.forEach(function (group) {
+        list.appendChild(el("section", { class: "dict-group" }, [
           el("h3", {}, [
-            groupCat,
-            el("span", { class: "group-count", text: items.length + " 条" })
-          ])
-        ].concat(items.map(function (item) {
-          return el("button", {
-            class: "glossary-item",
-            attrs: { type: "button", "data-term": item.name },
-            html: '<span class="item-name">' + H.dom.escapeHTML(item.name) + "</span>" +
-                  '<span class="item-def">' + fmt(item.entry.def || "") + "</span>"
-          });
-        }))));
+            group.cat,
+            el("span", { class: "group-count", text: group.items.length + " 条" })
+          ]),
+          el("div", { class: "dict-grid" }, group.items.map(function (item) {
+            return el("button", {
+              class: "term-card",
+              attrs: { type: "button", "data-term": item.name },
+              html:
+                (item.entry.cat ? '<span class="card-cat">' + H.dom.escapeHTML(item.entry.cat) + "</span>" : "") +
+                '<span class="card-name">' + H.dom.escapeHTML(item.name) + "</span>" +
+                '<span class="card-def">' + fmt(item.entry.def || "") + "</span>"
+            });
+          }))
+        ]));
       });
 
       if (!matched.length) {
         list.appendChild(el("p", { class: "glossary-empty", text: "没有匹配的术语，换个关键词试试。" }));
       }
 
-      if (this.count) {
-        this.count.textContent = matched.length === entries.length
-          ? "共 " + entries.length + " 条"
-          : "匹配 " + matched.length + " / " + entries.length + " 条";
-      }
+      /* 计数：总数 + 左侧导航各分类实时计数 */
+      var countText = matched.length === entries.length
+        ? "共 " + entries.length + " 条"
+        : "匹配 " + matched.length + " / " + entries.length + " 条";
+      if (this.count) this.count.textContent = countText;
+
+      this.rail.querySelectorAll("[data-cat-count]").forEach(function (node) {
+        var railCat = node.getAttribute("data-cat-count");
+        var n = railCat === "全部"
+          ? matched.length
+          : matched.filter(function (item) { return item.entry.cat === railCat; }).length;
+        node.textContent = String(n);
+      });
     }
   };
 })(window.Handbook = window.Handbook || {});

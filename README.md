@@ -7,7 +7,7 @@
 **https://samlaying.github.io/ai-pm-handbook/** （画廊首页，国内可直连）
 
 - 首页（画廊 + 双入口）：`/`
-- 名词词典（站级独立页）：`/glossary.html`
+- 名词词典（站级独立页）：`/glossary.html`（左侧分组导航 + 多列词条网格，可承载大量词条）
 - 案例 01 · AI 客服：`/cases/ai-kefu/`（九模块手册，正文划线词开详解抽屉）
 
 更新内容后重新发布：改完文件 → `git add -A && git commit -m "..." && git push`，Pages 会自动重新构建（约 1 分钟）。

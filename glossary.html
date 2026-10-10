@@ -16,7 +16,7 @@
   </noscript>
 
   <link rel="stylesheet" href="css/tokens.css?v=4">
-  <link rel="stylesheet" href="css/dictionary.css?v=4">
+  <link rel="stylesheet" href="css/dictionary.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#glossaryList">跳到词典列表</a>
@@ -31,7 +31,7 @@
       <a href="./" data-nav="cases">案例</a>
       <a href="glossary.html" class="is-active" data-nav="glossary" aria-current="page">词典</a>
     </nav>
-    <span class="topbar-note">GLOSSARY · 名词词典</span>
+    <span class="topbar-note">CASES &amp; GLOSSARY</span>
   </header>
 
   <main id="main">
@@ -39,19 +39,22 @@
       <header class="glossary-head">
         <span class="kicker">GLOSSARY · 术语速查</span>
         <h2>名词词典</h2>
-        <p class="lede">手册全线通用的术语词典：点击任意词条，查看名词定义、项目案例与技术解析和应用。</p>
+        <p class="lede">手册全线通用的术语词典：点击任意词条，查看名词定义、项目案例与技术解析和应用（按 / 可快速聚焦搜索）。</p>
       </header>
 
       <div class="glossary-tools">
-        <input class="glossary-search" type="search" placeholder="搜索术语 / 定义…" aria-label="搜索术语">
-        <div class="cat-chips" aria-label="按分类筛选"></div>
+        <input class="glossary-search" type="search" placeholder="搜索术语 / 定义…" title="快捷键：按 / 聚焦搜索" aria-label="搜索术语">
         <span class="glossary-count" id="glossaryCount" role="status"></span>
       </div>
 
-      <div id="glossaryList" aria-label="词条列表">
-        <noscript>
-          <p>本页内容由 JavaScript 渲染，请启用 JavaScript 后查看。数据源位于 <code>js/data/terms.js</code>。</p>
-        </noscript>
+      <!-- 左侧分组导航 + 右侧词条网格（可承载大量词条） -->
+      <div class="dict-layout">
+        <nav class="dict-rail" id="dictRail" aria-label="按分类筛选"></nav>
+        <div id="glossaryList" aria-label="词条列表">
+          <noscript>
+            <p>本页内容由 JavaScript 渲染，请启用 JavaScript 后查看。数据源位于 <code>js/data/terms.js</code>。</p>
+          </noscript>
+        </div>
       </div>
     </div>
   </main>
@@ -83,7 +86,7 @@
   <script src="js/lib/dom.js?v=4"></script>
   <script src="js/data/terms.js?v=4"></script>
   <script src="js/ui/fmt.js?v=4"></script>
-  <script src="js/ui/dictionary.js?v=4"></script>
+  <script src="js/ui/dictionary.js?v=5"></script>
   <script src="js/ui/drawer.js?v=4"></script>
   <script src="js/main.js?v=4"></script>
 </body>
