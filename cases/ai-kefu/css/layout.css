@@ -65,9 +65,14 @@
   white-space: nowrap;
 }
 
-/* 词典入口：跳转站级名词词典 */
-.topbar .dict-link {
+/* 站级入口：词典 / 面试题 */
+.topbar .site-links {
+  display: inline-flex;
+  gap: 6px;
   margin-left: 4px;
+}
+
+.topbar .dict-link {
   padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 2px;

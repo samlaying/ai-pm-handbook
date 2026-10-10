@@ -125,21 +125,7 @@ a { color: var(--ink); }
   margin: 0 0 26px; font-size: 20px; font-weight: 500; color: var(--ink-soft);
 }
 
-.hero .lede { max-width: 36em; margin: 0 0 36px; color: var(--ink-soft); }
-
-/* —— 统计行 —— */
-.hero-stats {
-  display: flex; flex-wrap: wrap; gap: 24px 48px;
-  padding: 20px 0 0; border-top: 1px solid var(--line);
-}
-
-.stat-value {
-  display: block;
-  font-family: var(--font-num); font-size: 40px; line-height: 1;
-  color: var(--accent);
-}
-
-.stat-label { font-size: var(--fs-label); letter-spacing: 0.05em; color: var(--ink-soft); }
+.hero .lede { max-width: 36em; margin: 0; color: var(--ink-soft); }
 
 /* —— 案例列表 —— */
 .case-list {

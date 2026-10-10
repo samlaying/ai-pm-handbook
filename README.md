@@ -6,8 +6,9 @@
 
 **https://samlaying.github.io/ai-pm-handbook/** （画廊首页，国内可直连）
 
-- 首页（画廊 + 双入口）：`/`
+- 首页（画廊 + 三入口）：`/`
 - 名词词典（站级独立页）：`/glossary.html`（左侧分组导航 + 多列词条网格，可承载大量词条）
+- 面试题库（站级独立页）：`/interview.html`（左侧分类导航 + 手风琴题卡，支持 #q-N 深链）
 - 案例 01 · AI 客服：`/cases/ai-kefu/`（九模块手册，正文划线词开详解抽屉）
 
 更新内容后重新发布：改完文件 → `git add -A && git commit -m "..." && git push`，Pages 会自动重新构建（约 1 分钟）。
@@ -16,19 +17,24 @@
 
 ```
 ai-pm-handbook/                 # 仓库根 = 画廊首页
-├── index.html                  # 首页：Hero + 双入口（案例/词典）+ 案例画廊
+├── index.html                  # 首页：Hero + 三入口（案例/词典/面试题）+ 案例画廊
+├── interview.html               # 面试题库（站级独立页：搜索 / 分类 / 手风琴展开）
 ├── glossary.html               # 名词词典（站级独立页：搜索 / 分类 / 三段式抽屉）
 ├── css/
 │   ├── tokens.css              #   设计令牌（与各案例保持一致）
-│   ├── gallery.css             #   首页样式（含 site-nav / 双入口卡）
-│   └── dictionary.css          #   词典页样式（含详解抽屉）
+│   ├── gallery.css             #   首页样式（site-nav / 入口卡 / 案例卡片）
+│   ├── site.css                #   站级共享样式（顶栏 / 页脚 / 抽屉 / 侧栏导航）
+│   ├── dictionary.css          #   词典页专属（工具条 + 词条网格）
+│   └── interview.css           #   面试题页专属（工具条 + 手风琴题卡）
 ├── js/
 │   ├── lib/dom.js              #   DOM 工具
 │   ├── data/cases.js           # ★ 案例注册表：画廊上有什么全在这
 │   ├── data/terms.js           # ★ 站级术语数据（词典与各案例共用的唯一数据源）
-│   ├── ui/gallery.js           #   首页渲染（统计 / 双入口计数 / 案例卡片）
+│   ├── data/interview.js       # ★ 面试题库数据（分类 / 题目 / 考察点 / 要点）
+│   ├── ui/gallery.js           #   首页渲染（入口计数 / 案例卡片）
 │   ├── ui/dictionary.js        #   词典页渲染（搜索 + 分类 + 分组列表）
-│   ├── ui/drawer.js            #   词典页详解抽屉（模块链接跳回案例）
+│   ├── ui/interview.js         #   面试题页渲染（搜索 + 分类 + 手风琴 + 深链）
+│   ├── ui/drawer.js            #   详解抽屉（词典页 / 面试题页共用，模块链接跳回案例）
 │   ├── ui/fmt.js               #   行内格式化（**加粗** / [[术语]]）
 │   └── main.js                 #   站级启动器（按页面挂载点分发）
 └── cases/                      # ★ 每个案例一个自包含目录
@@ -61,13 +67,14 @@ ai-pm-handbook/                 # 仓库根 = 画廊首页
 
 3. **发布**：`git add -A && git commit -m "新增案例：xxx" && git push`。
 
-画廊首页的 Hero 统计（已上线数 / 规划中 / 术语沉淀）由注册表自动汇总，无需手改。
+首页三张入口卡的计数（案例上线数 / 术语量 / 题量）由注册表与数据文件自动汇总，无需手改。
 
 ## 页面层级与交叉导航
 
 ```
-首页 /                    —— ◆ AI 产品实战手册 + [案例 | 词典]
+首页 /                    —— ◆ AI 产品实战手册 + [案例 | 词典 | 面试题]
 ├─ 词典 /glossary.html    —— 独立名词词典（搜索 / 分类 / 三段式抽屉）
+├─ 面试题 /interview.html  —— 面试题库（搜索 / 分类 / 手风琴展开，要点可点开术语抽屉）
 └─ 案例 /cases/<slug>/    —— 案例手册（顶栏：logo 回首页 + 词典入口 + 模块导航）
 ```
 
@@ -91,7 +98,14 @@ ai-pm-handbook/                 # 仓库根 = 画廊首页
 // 术语：六字段
 { cat: "方法论", def: "定义", case: "项目案例",
   tech: ["技术解析和应用"], modules: ["m05"], related: ["MVP"] }
+
+// 面试题（站级 js/data/interview.js）：四字段，H.quiz 数组 + H.quizCats 分类表
+{ cat: "需求分析", q: "题目原文",
+  focus: "考察点（面试官想听什么）",
+  points: ["答题要点，支持 **加粗** 与 [[术语]]（点击开抽屉）"] }
 ```
+
+加题只改 `js/data/interview.js`：往 `H.quiz` 数组追加对象即可，分类计数、侧栏、搜索全部自动更新（`cat` 取 `H.quizCats` 里的值，新分类往该数组里加）。
 
 ## 本地预览
 

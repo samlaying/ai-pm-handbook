@@ -1,7 +1,8 @@
 /* ==========================================================================
    main.js — 站级启动器：按页面挂载点分发
-   首页（index.html）：画廊 + 双入口计数
+   首页（index.html）：画廊 + 入口计数
    词典页（glossary.html）：词典列表 + 详解抽屉
+   面试题页（interview.html）：题卡手风琴 + 详解抽屉
    ========================================================================== */
 
 (function (H) {
@@ -15,11 +16,17 @@
 
     var onHome = !!document.getElementById("caseList");
     var onDict = !!document.getElementById("glossaryList");
+    var onQuiz = !!document.getElementById("qaList");
 
     if (onHome && H.ui.gallery) H.ui.gallery.init();
 
     if (onDict) {
       if (H.ui.dictionary) H.ui.dictionary.init();
+      if (H.ui.drawer) H.ui.drawer.init();
+    }
+
+    if (onQuiz) {
+      if (H.ui.interview) H.ui.interview.init();
       if (H.ui.drawer) H.ui.drawer.init();
     }
 

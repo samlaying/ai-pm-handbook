@@ -17,7 +17,7 @@
 
   <!-- 样式：画廊独用（案例站点在 cases/<slug>/ 下自成一体） -->
   <link rel="stylesheet" href="css/tokens.css?v=4">
-  <link rel="stylesheet" href="css/gallery.css?v=4">
+  <link rel="stylesheet" href="css/gallery.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#caseList">跳到案例列表</a>
@@ -28,29 +28,29 @@
     <nav class="site-nav" aria-label="主导航">
       <a href="#cases" class="is-active" data-nav="cases">案例</a>
       <a href="glossary.html" data-nav="glossary">词典</a>
+      <a href="interview.html" data-nav="interview">面试题</a>
     </nav>
-    <span class="topbar-note">CASES &amp; GLOSSARY</span>
+    <span class="topbar-note">CASES · GLOSSARY · Q&amp;A</span>
   </header>
 
   <main id="main">
-    <!-- Hero（统计由 ui/gallery.js 依据 cases.js 汇总） -->
+    <!-- Hero（入口与案例计数由 ui/gallery.js 填充） -->
     <header class="hero">
       <div class="hero-inner">
-        <span class="kicker">AI 产品实战方法论 · 案例画廊</span>
+        <span class="kicker">AI 产品实战方法论</span>
         <h1>一系列可以跟着做完的 AI 项目</h1>
         <p class="subtitle">每个案例，都是一个完整走通的 AI 产品项目</p>
         <p class="lede">从一句模糊的业务指令，到可运行、可汇报的落地 Demo——同一个方法论，不同的行业与场景。选一个案例，以第一人称走进项目。</p>
-        <div class="hero-stats" id="heroStats"></div>
       </div>
     </header>
 
-    <!-- 两大板块入口：案例画廊 / 名词词典（计数由 ui/gallery.js 填充） -->
-    <section class="entries" aria-label="两大板块">
+    <!-- 三大板块入口：案例画廊 / 名词词典 / 面试题库（计数由 ui/gallery.js 填充） -->
+    <section class="entries" aria-label="三大板块">
       <a class="entry reveal" href="#cases">
         <span class="entry-no" aria-hidden="true">01</span>
         <p class="entry-kicker">CASES</p>
         <h3 class="entry-title">案例</h3>
-        <p class="entry-desc">跟着做完的完整 AI 项目：从一个模糊的业务指令，到可运行、可汇报的落地 Demo。</p>
+        <p class="entry-desc">按行业与场景归档的项目画廊：每个案例标注了模块数、术语量与 Demo 入口。</p>
         <p class="entry-meta" id="entryCaseCount"></p>
         <span class="entry-arrow">浏览案例 ↓</span>
       </a>
@@ -61,6 +61,14 @@
         <p class="entry-desc">可查询的名词词典：每个词条都有定义、项目案例与技术解析和应用。</p>
         <p class="entry-meta" id="entryTermCount"></p>
         <span class="entry-arrow">打开词典 →</span>
+      </a>
+      <a class="entry reveal" href="interview.html">
+        <span class="entry-no" aria-hidden="true">03</span>
+        <p class="entry-kicker">INTERVIEW</p>
+        <h3 class="entry-title">面试题</h3>
+        <p class="entry-desc">传统产品经理面试高频题：按分类刷题，展开即得考察点与答题要点。</p>
+        <p class="entry-meta" id="entryQuizCount"></p>
+        <span class="entry-arrow">开始刷题 →</span>
       </a>
     </section>
 
@@ -85,8 +93,9 @@
   <!-- 脚本：数据 → 渲染 → 启动 -->
   <script src="js/data/cases.js?v=4"></script>
   <script src="js/data/terms.js?v=4"></script>
+  <script src="js/data/interview.js?v=1"></script>
   <script src="js/lib/dom.js"></script>
-  <script src="js/ui/gallery.js?v=4"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/ui/gallery.js?v=6"></script>
+  <script src="js/main.js?v=5"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ui/gallery.js — 画廊首页渲染：Hero 统计 + 案例卡片列表（数据驱动）
+   ui/gallery.js — 画廊首页渲染：入口计数 + 案例卡片列表（数据驱动）
    ========================================================================== */
 
 (function (H) {
@@ -13,13 +13,6 @@
     if (stats.terms) parts.push(stats.terms + " 个术语词条");
     if (stats.demo) parts.push(stats.demo + " 可运行 Demo");
     return parts.join(" · ");
-  }
-
-  function renderStat(value, label) {
-    return el("div", { class: "stat" }, [
-      el("strong", { class: "stat-value", text: String(value) }),
-      el("span", { class: "stat-label", text: label })
-    ]);
   }
 
   function renderCaseCard(item) {
@@ -70,25 +63,21 @@
         mount.appendChild(renderCaseCard(item));
       });
 
-      /* Hero 统计：从注册表汇总 */
-      var statsMount = document.getElementById("heroStats");
+      /* 入口卡片的计数 */
       var live = H.cases.filter(function (c) { return c.status === "live"; }).length;
       var soon = H.cases.filter(function (c) { return c.status === "soon"; }).length;
       var terms = H.terms ? Object.keys(H.terms).length
         : H.cases.reduce(function (sum, c) {
             return sum + (c.stats && c.stats.terms ? c.stats.terms : 0);
           }, 0);
-      if (statsMount) {
-        statsMount.appendChild(renderStat(live + soon, "案例项目"));
-        statsMount.appendChild(renderStat(terms, "词典收录术语"));
-        statsMount.appendChild(renderStat("9", "每案例模块"));
-      }
-
-      /* 双入口卡片的计数 */
       var caseCount = document.getElementById("entryCaseCount");
       var termCount = document.getElementById("entryTermCount");
+      var quizCount = document.getElementById("entryQuizCount");
       if (caseCount) caseCount.textContent = live + " 个已上线 · " + soon + " 个规划中";
       if (termCount) termCount.textContent = terms + " 个术语 · 定义 / 项目案例 / 技术解析";
+      if (quizCount && H.quiz) {
+        quizCount.textContent = H.quiz.length + " 道题 · " + (H.quizCats || []).length + " 大类考点";
+      }
 
       /* 滚动淡入 */
       var targets = document.querySelectorAll(".reveal");
