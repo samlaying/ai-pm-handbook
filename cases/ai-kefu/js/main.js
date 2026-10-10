@@ -19,11 +19,7 @@
     /* 1. 数据 → DOM */
     H.ui.render();
 
-    /* 2. 页面 Tab 与名词查询页（先于动效初始化，保证词条能被淡入观察） */
-    H.ui.tabs.init();
-    H.ui.glossary.init();
-
-    /* 3. 交互行为 */
+    /* 2. 交互行为 */
     H.ui.nav.init();
     H.ui.progress.init();
     H.ui.reveal.init();

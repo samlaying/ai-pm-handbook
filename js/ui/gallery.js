@@ -72,16 +72,23 @@
 
       /* Hero 统计：从注册表汇总 */
       var statsMount = document.getElementById("heroStats");
+      var live = H.cases.filter(function (c) { return c.status === "live"; }).length;
+      var soon = H.cases.filter(function (c) { return c.status === "soon"; }).length;
+      var terms = H.terms ? Object.keys(H.terms).length
+        : H.cases.reduce(function (sum, c) {
+            return sum + (c.stats && c.stats.terms ? c.stats.terms : 0);
+          }, 0);
       if (statsMount) {
-        var live = H.cases.filter(function (c) { return c.status === "live"; }).length;
-        var soon = H.cases.filter(function (c) { return c.status === "soon"; }).length;
-        var terms = H.cases.reduce(function (sum, c) {
-          return sum + (c.stats && c.stats.terms ? c.stats.terms : 0);
-        }, 0);
-        statsMount.appendChild(renderStat(live, "已上线案例"));
-        statsMount.appendChild(renderStat(soon, "规划中"));
-        statsMount.appendChild(renderStat(terms, "术语与方法沉淀"));
+        statsMount.appendChild(renderStat(live + soon, "案例项目"));
+        statsMount.appendChild(renderStat(terms, "词典收录术语"));
+        statsMount.appendChild(renderStat("9", "每案例模块"));
       }
+
+      /* 双入口卡片的计数 */
+      var caseCount = document.getElementById("entryCaseCount");
+      var termCount = document.getElementById("entryTermCount");
+      if (caseCount) caseCount.textContent = live + " 个已上线 · " + soon + " 个规划中";
+      if (termCount) termCount.textContent = terms + " 个术语 · 定义 / 项目案例 / 技术解析";
 
       /* 滚动淡入 */
       var targets = document.querySelectorAll(".reveal");

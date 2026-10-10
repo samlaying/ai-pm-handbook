@@ -1,6 +1,6 @@
 /* ==========================================================================
-   ui/glossary.js — 「名词查询」页：搜索 + 分类筛选 + 词条列表
-   点击词条打开右侧详解抽屉（与案例 Tab 共用同一份 terms.js 数据）
+   ui/dictionary.js — 独立名词词典页：搜索 + 分类筛选 + 分组列表
+   数据源：站级 js/data/terms.js；点击词条由 ui/drawer.js 打开详解抽屉
    ========================================================================== */
 
 (function (H) {
@@ -13,69 +13,44 @@
 
   H.ui = H.ui || {};
 
-  H.ui.glossary = {
+  H.ui.dictionary = {
     init: function init() {
-      this.mount = document.getElementById("glossaryView");
-      if (!this.mount || !H.terms) return;
+      this.list = document.getElementById("glossaryList");
+      this.count = document.getElementById("glossaryCount");
+      this.search = document.querySelector(".glossary-search");
+      this.chips = document.querySelector(".cat-chips");
+      if (!this.list || !H.terms) return;
 
       this.state = { query: "", cat: "全部" };
-      this.render();
+      this.renderChips();
       this.bindTools();
+      this.applyFilter();
     },
 
-    render: function render() {
+    renderChips: function renderChips() {
       var self = this;
-      this.mount.innerHTML = "";
-
       var cats = ["全部"].concat(H.termCats || []);
-
-      this.mount.appendChild(el("div", { class: "glossary" }, [
-        el("header", { class: "glossary-head" }, [
-          el("span", { class: "kicker", text: "GLOSSARY · 术语速查" }),
-          el("h2", { text: "名词查询" }),
-          el("p", {
-            class: "lede",
-            text: "案例中出现的全部术语：点击任意词条，查看名词定义、项目案例与技术解析和应用。"
-          })
-        ]),
-        el("div", { class: "glossary-tools" }, [
-          el("input", {
-            class: "glossary-search",
-            attrs: {
-              type: "search",
-              placeholder: "搜索术语 / 定义…",
-              "aria-label": "搜索术语"
-            }
-          }),
-          el("div", { class: "cat-chips" }, cats.map(function (cat) {
-            return el("button", {
-              class: "cat-chip" + (cat === "全部" ? " is-active" : ""),
-              text: cat,
-              attrs: { type: "button", "data-cat": cat }
-            });
-          })),
-          el("span", { class: "glossary-count", attrs: { role: "status" } })
-        ]),
-        el("div", { class: "glossary-list" })
-      ]));
-
-      this.applyFilter();
+      cats.forEach(function (cat) {
+        self.chips.appendChild(el("button", {
+          class: "cat-chip" + (cat === "全部" ? " is-active" : ""),
+          text: cat,
+          attrs: { type: "button", "data-cat": cat }
+        }));
+      });
     },
 
     bindTools: function bindTools() {
       var self = this;
-      var search = this.mount.querySelector(".glossary-search");
-      if (search) {
-        search.addEventListener("input", function () {
-          self.state.query = search.value.trim().toLowerCase();
+      if (this.search) {
+        this.search.addEventListener("input", function () {
+          self.state.query = self.search.value.trim().toLowerCase();
           self.applyFilter();
         });
       }
-
-      this.mount.querySelectorAll(".cat-chip").forEach(function (chip) {
+      this.chips.querySelectorAll(".cat-chip").forEach(function (chip) {
         chip.addEventListener("click", function () {
           self.state.cat = chip.dataset.cat;
-          self.mount.querySelectorAll(".cat-chip").forEach(function (c) {
+          self.chips.querySelectorAll(".cat-chip").forEach(function (c) {
             c.classList.toggle("is-active", c === chip);
           });
           self.applyFilter();
@@ -84,8 +59,7 @@
     },
 
     applyFilter: function applyFilter() {
-      var list = this.mount.querySelector(".glossary-list");
-      var count = this.mount.querySelector(".glossary-count");
+      var list = this.list;
       var query = this.state.query;
       var cat = this.state.cat;
       list.innerHTML = "";
@@ -103,7 +77,6 @@
         return haystack.indexOf(query) !== -1;
       });
 
-      /* 按分类分组（保持 termCats 的顺序） */
       var groups = {};
       (H.termCats || []).forEach(function (c) { groups[c] = []; });
       matched.forEach(function (item) {
@@ -111,14 +84,11 @@
         (groups[c] = groups[c] || []).push(item);
       });
 
-      var total = 0;
       Object.keys(groups).forEach(function (groupCat) {
         var items = groups[groupCat];
         if (!items.length) return;
-        total += items.length;
 
-        /* 注：词条列表不用 reveal 淡入——筛选会重建 DOM，
-           新元素不会被 IntersectionObserver 观察，会永远停在 opacity:0 */
+        /* 注：列表不参与淡入（筛选会重建 DOM） */
         list.appendChild(el("section", { class: "glossary-group" }, [
           el("h3", {}, [
             groupCat,
@@ -138,8 +108,8 @@
         list.appendChild(el("p", { class: "glossary-empty", text: "没有匹配的术语，换个关键词试试。" }));
       }
 
-      if (count) {
-        count.textContent = matched.length === entries.length
+      if (this.count) {
+        this.count.textContent = matched.length === entries.length
           ? "共 " + entries.length + " 条"
           : "匹配 " + matched.length + " / " + entries.length + " 条";
       }

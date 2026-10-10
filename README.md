@@ -6,8 +6,9 @@
 
 **https://samlaying.github.io/ai-pm-handbook/** （画廊首页，国内可直连）
 
-- 画廊首页：`/`
-- 案例 01 · AI 客服：`/cases/ai-kefu/`（九模块手册 + 名词查询双 Tab）
+- 首页（画廊 + 双入口）：`/`
+- 名词词典（站级独立页）：`/glossary.html`
+- 案例 01 · AI 客服：`/cases/ai-kefu/`（九模块手册，正文划线词开详解抽屉）
 
 更新内容后重新发布：改完文件 → `git add -A && git commit -m "..." && git push`，Pages 会自动重新构建（约 1 分钟）。
 
@@ -15,15 +16,21 @@
 
 ```
 ai-pm-handbook/                 # 仓库根 = 画廊首页
-├── index.html                  # 画廊页（案例卡片列表）
-├── css/                        # 画廊样式（tokens 与各案例保持一致）
-│   ├── tokens.css              #   设计令牌
-│   └── gallery.css             #   画廊布局与卡片
+├── index.html                  # 首页：Hero + 双入口（案例/词典）+ 案例画廊
+├── glossary.html               # 名词词典（站级独立页：搜索 / 分类 / 三段式抽屉）
+├── css/
+│   ├── tokens.css              #   设计令牌（与各案例保持一致）
+│   ├── gallery.css             #   首页样式（含 site-nav / 双入口卡）
+│   └── dictionary.css          #   词典页样式（含详解抽屉）
 ├── js/
-│   ├── lib/dom.js              #   DOM 工具（与案例站同源副本）
+│   ├── lib/dom.js              #   DOM 工具
 │   ├── data/cases.js           # ★ 案例注册表：画廊上有什么全在这
-│   ├── ui/gallery.js           #   画廊渲染（Hero 统计 + 卡片）
-│   └── main.js                 #   画廊启动器
+│   ├── data/terms.js           # ★ 站级术语数据（词典与各案例共用的唯一数据源）
+│   ├── ui/gallery.js           #   首页渲染（统计 / 双入口计数 / 案例卡片）
+│   ├── ui/dictionary.js        #   词典页渲染（搜索 + 分类 + 分组列表）
+│   ├── ui/drawer.js            #   词典页详解抽屉（模块链接跳回案例）
+│   ├── ui/fmt.js               #   行内格式化（**加粗** / [[术语]]）
+│   └── main.js                 #   站级启动器（按页面挂载点分发）
 └── cases/                      # ★ 每个案例一个自包含目录
     ├── ai-kefu/                #   案例 01：AI 客服（九模块手册）
     │   ├── index.html          #     双 Tab：案例 / 名词查询
@@ -56,15 +63,25 @@ ai-pm-handbook/                 # 仓库根 = 画廊首页
 
 画廊首页的 Hero 统计（已上线数 / 规划中 / 术语沉淀）由注册表自动汇总，无需手改。
 
+## 页面层级与交叉导航
+
+```
+首页 /                    —— ◆ AI 产品实战手册 + [案例 | 词典]
+├─ 词典 /glossary.html    —— 独立名词词典（搜索 / 分类 / 三段式抽屉）
+└─ 案例 /cases/<slug>/    —— 案例手册（顶栏：logo 回首页 + 词典入口 + 模块导航）
+```
+
+- 术语数据是**站级唯一数据源**（`js/data/terms.js`），词典页与各案例共用；
+- 词典抽屉的「出现在案例」链接带案例路径，可跨页跳进案例对应模块；
+- 案例正文划线词照常打开三段式抽屉（模块回跳为页内锚点）。
+
 ## 案例内部结构（以 ai-kefu 为例）
 
-- 顶栏双 Tab：**案例**（九模块长文，含每模块「要解决的问题」卡与小节点题句）/ **名词查询**（搜索 + 分类筛选）
-- 术语抽屉三段式：名词定义 / 项目案例 / 技术解析和应用 + 模块回跳链接 + 相关术语
-- 交叉导航：案例正文划线词 → 抽屉 → 回跳案例模块；`#glossary` 直达名词页
+- 九模块长文，含每模块「要解决的问题」卡与小节点题句
 - 检查清单勾选持久化（localStorage）；进度条 + scroll-spy；移动端抽屉菜单
 - 打印友好；`prefers-reduced-motion` 全降级；零框架零构建
 
-案例数据格式（`cases/ai-kefu/js/data/`）：
+案例数据格式（`cases/ai-kefu/js/data/`；术语在站级 `js/data/terms.js`）：
 
 ```js
 // 模块：blocks 支持 p / table / list / quote / warning / code 六种

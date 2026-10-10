@@ -16,8 +16,8 @@
   </noscript>
 
   <!-- 样式：画廊独用（案例站点在 cases/<slug>/ 下自成一体） -->
-  <link rel="stylesheet" href="css/tokens.css?v=3">
-  <link rel="stylesheet" href="css/gallery.css?v=3">
+  <link rel="stylesheet" href="css/tokens.css?v=4">
+  <link rel="stylesheet" href="css/gallery.css?v=4">
 </head>
 <body>
   <a class="skip-link" href="#caseList">跳到案例列表</a>
@@ -25,7 +25,11 @@
   <!-- 顶栏 -->
   <header class="topbar">
     <a class="brand" href="./" title="返回案例画廊" aria-label="AI 产品实战手册，返回案例画廊"><svg class="logo-mark" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="1.5" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="5.5" y="5.5" width="7" height="7" fill="currentColor"/></svg><span>AI 产品实战手册</span></a>
-    <span class="topbar-note">CASE GALLERY · 案例系列</span>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="#cases" class="is-active" data-nav="cases">案例</a>
+      <a href="glossary.html" data-nav="glossary">词典</a>
+    </nav>
+    <span class="topbar-note">CASES &amp; GLOSSARY</span>
   </header>
 
   <main id="main">
@@ -40,8 +44,28 @@
       </div>
     </header>
 
+    <!-- 两大板块入口：案例画廊 / 名词词典（计数由 ui/gallery.js 填充） -->
+    <section class="entries" aria-label="两大板块">
+      <a class="entry reveal" href="#cases">
+        <span class="entry-no" aria-hidden="true">01</span>
+        <p class="entry-kicker">CASES</p>
+        <h3 class="entry-title">案例</h3>
+        <p class="entry-desc">跟着做完的完整 AI 项目：从一个模糊的业务指令，到可运行、可汇报的落地 Demo。</p>
+        <p class="entry-meta" id="entryCaseCount"></p>
+        <span class="entry-arrow">浏览案例 ↓</span>
+      </a>
+      <a class="entry reveal" href="glossary.html">
+        <span class="entry-no" aria-hidden="true">02</span>
+        <p class="entry-kicker">GLOSSARY</p>
+        <h3 class="entry-title">词典</h3>
+        <p class="entry-desc">可查询的名词词典：每个词条都有定义、项目案例与技术解析和应用。</p>
+        <p class="entry-meta" id="entryTermCount"></p>
+        <span class="entry-arrow">打开词典 →</span>
+      </a>
+    </section>
+
     <!-- 案例列表（内容由 ui/gallery.js 依据 js/data/cases.js 渲染） -->
-    <div class="section-head">
+    <div class="section-head" id="cases">
       <h2>全部案例</h2>
       <hr>
     </div>
@@ -59,9 +83,10 @@
   </footer>
 
   <!-- 脚本：数据 → 渲染 → 启动 -->
-  <script src="js/data/cases.js?v=3"></script>
+  <script src="js/data/cases.js?v=4"></script>
+  <script src="js/data/terms.js?v=4"></script>
   <script src="js/lib/dom.js"></script>
-  <script src="js/ui/gallery.js?v=3"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/ui/gallery.js?v=4"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

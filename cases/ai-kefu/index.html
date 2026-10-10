@@ -16,14 +16,13 @@
   </noscript>
 
   <!-- 样式：按层拆分，tokens 是唯一定义变量的地方 -->
-  <link rel="stylesheet" href="css/tokens.css?v=7">
-  <link rel="stylesheet" href="css/base.css?v=7">
-  <link rel="stylesheet" href="css/layout.css?v=7">
-  <link rel="stylesheet" href="css/components.css?v=7">
-  <link rel="stylesheet" href="css/drawer.css?v=7">
-  <link rel="stylesheet" href="css/glossary.css?v=7">
-  <link rel="stylesheet" href="css/motion.css?v=7">
-  <link rel="stylesheet" href="css/print.css?v=7">
+  <link rel="stylesheet" href="css/tokens.css?v=8">
+  <link rel="stylesheet" href="css/base.css?v=8">
+  <link rel="stylesheet" href="css/layout.css?v=8">
+  <link rel="stylesheet" href="css/components.css?v=8">
+  <link rel="stylesheet" href="css/drawer.css?v=8">
+  <link rel="stylesheet" href="css/motion.css?v=8">
+  <link rel="stylesheet" href="css/print.css?v=8">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到正文</a>
@@ -43,10 +42,7 @@
     </button>
     <a class="brand" id="brand" href="../../index.html" title="返回案例画廊" aria-label="AI 产品实战手册，返回案例画廊"><svg class="logo-mark" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="1.5" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="5.5" y="5.5" width="7" height="7" fill="currentColor"/></svg><span id="brandText">AI 产品实战手册</span></a>
     <span class="case-crumb" aria-hidden="true">/ AI 客服</span>
-    <div class="tabs" role="tablist" aria-label="页面视图切换">
-      <button type="button" data-tab="case" class="is-active" aria-selected="true">案例</button>
-      <button type="button" data-tab="terms" aria-selected="false">名词</button>
-    </div>
+    <a class="dict-link" href="../../glossary.html" title="打开名词词典">词典</a>
     <nav class="topnav" id="topNav" aria-label="模块快速导航"></nav>
   </header>
 
@@ -76,8 +72,6 @@
         </noscript>
       </div>
 
-      <!-- 名词查询 Tab（内容由 ui/glossary.js 依据 terms.js 渲染） -->
-      <section id="glossaryView" aria-label="名词查询"></section>
     </main>
   </div>
 
@@ -105,28 +99,26 @@
   <div class="term-backdrop" id="termBackdrop"></div>
 
   <!-- 脚本：lib → data → ui → main（经典脚本，file:// 直开可用） -->
-  <script src="js/lib/dom.js?v=7"></script>
-  <script src="js/lib/store.js?v=7"></script>
-  <script src="js/data/site.js?v=7"></script>
-  <script src="js/data/terms.js?v=7"></script>
-  <script src="js/data/module-01.js?v=7"></script>
-  <script src="js/data/module-02.js?v=7"></script>
-  <script src="js/data/module-03.js?v=7"></script>
-  <script src="js/data/module-04.js?v=7"></script>
-  <script src="js/data/module-05.js?v=7"></script>
-  <script src="js/data/module-06.js?v=7"></script>
-  <script src="js/data/module-07.js?v=7"></script>
-  <script src="js/data/module-08.js?v=7"></script>
-  <script src="js/data/module-09.js?v=7"></script>
-  <script src="js/data/summary.js?v=7"></script>
-  <script src="js/ui/render.js?v=7"></script>
-  <script src="js/ui/tabs.js?v=7"></script>
-  <script src="js/ui/glossary.js?v=7"></script>
-  <script src="js/ui/nav.js?v=7"></script>
-  <script src="js/ui/progress.js?v=7"></script>
-  <script src="js/ui/reveal.js?v=7"></script>
-  <script src="js/ui/drawer.js?v=7"></script>
-  <script src="js/ui/checklist.js?v=7"></script>
-  <script src="js/main.js?v=7"></script>
+  <script src="js/lib/dom.js?v=8"></script>
+  <script src="js/lib/store.js?v=8"></script>
+  <script src="js/data/site.js?v=8"></script>
+  <script src="../../js/data/terms.js?v=4"></script>
+  <script src="js/data/module-01.js?v=8"></script>
+  <script src="js/data/module-02.js?v=8"></script>
+  <script src="js/data/module-03.js?v=8"></script>
+  <script src="js/data/module-04.js?v=8"></script>
+  <script src="js/data/module-05.js?v=8"></script>
+  <script src="js/data/module-06.js?v=8"></script>
+  <script src="js/data/module-07.js?v=8"></script>
+  <script src="js/data/module-08.js?v=8"></script>
+  <script src="js/data/module-09.js?v=8"></script>
+  <script src="js/data/summary.js?v=8"></script>
+  <script src="js/ui/render.js?v=8"></script>
+  <script src="js/ui/nav.js?v=8"></script>
+  <script src="js/ui/progress.js?v=8"></script>
+  <script src="js/ui/reveal.js?v=8"></script>
+  <script src="js/ui/drawer.js?v=8"></script>
+  <script src="js/ui/checklist.js?v=8"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 </html>
