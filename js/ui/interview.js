@@ -131,7 +131,7 @@
       var matched = entries.filter(function (entry) {
         if (cat !== "全部" && entry.item.cat !== cat) return false;
         if (!query) return true;
-        var haystack = (entry.item.q + " " + entry.item.focus + " " + entry.item.points.join(" ")).toLowerCase();
+        var haystack = (entry.item.q + " " + (entry.item.topic || "") + " " + entry.item.focus + " " + entry.item.points.join(" ")).toLowerCase();
         return haystack.indexOf(query) !== -1;
       });
 
@@ -174,6 +174,7 @@
           ? matched.length
           : matched.filter(function (entry) { return entry.item.cat === railCat; }).length;
         node.textContent = String(n);
+        node.closest(".rail-item").classList.toggle("is-zero", n === 0);
       });
     },
 
@@ -191,6 +192,9 @@
             attrs: { type: "button", "aria-expanded": "false" }
           }, [
             el("span", { class: "qa-no", text: "Q" + pad(entry.no) }),
+            item.topic
+              ? el("span", { class: "qa-topic", text: item.topic })
+              : null,
             el("span", { class: "qa-q", text: item.q }),
             el("span", {
               class: "qa-toggle",

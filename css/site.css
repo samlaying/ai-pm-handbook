@@ -92,6 +92,11 @@ a { color: var(--ink); }
 
 .rail-item.is-active .rail-count { color: var(--accent); }
 
+/* 当前筛选下计数为 0 的分类：弱化提示空组（仍可点击查看空态） */
+.rail-item.is-zero { opacity: 0.5; }
+.rail-item.is-zero:hover { background: none; color: var(--ink-soft); cursor: default; }
+.rail-item.is-zero.is-active { opacity: 1; }
+
 /* —— 正文里的内联术语词（点击打开详解抽屉） —— */
 .term {
   display: inline; padding: 0;

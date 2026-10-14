@@ -90,6 +90,19 @@
   color: var(--accent); letter-spacing: 0.04em;
 }
 
+/* 专题标签：标明题目属于哪套问答稿（跨分类可追溯） */
+.qa-topic {
+  flex: none; align-self: center;
+  max-width: 13em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 2px 9px;
+  border: 1px dashed var(--line); border-radius: 999px;
+  font-size: 11px; letter-spacing: 0.03em; color: var(--ink-soft);
+}
+
+.qa-item:hover .qa-topic, .qa-item.is-open .qa-topic {
+  border-color: var(--accent); color: var(--accent);
+}
+
 .qa-q {
   flex: 1;
   font-family: var(--font-serif); font-size: 17px; font-weight: 700; line-height: 1.6;
@@ -166,6 +179,7 @@
   .quiz-count { margin-left: 0; width: 100%; }
   .qa-body-pad { padding-left: 0; }
   .qa-no { min-width: 26px; }
+  .qa-topic { display: none; }   /* 小屏题头空间有限，专题标签只在要点区外不再显示 */
 }
 
 /* —— 减少动态效果 —— */

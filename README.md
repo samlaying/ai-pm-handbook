@@ -30,7 +30,7 @@ ai-pm-handbook/                 # 仓库根 = 画廊首页
 │   ├── lib/dom.js              #   DOM 工具
 │   ├── data/cases.js           # ★ 案例注册表：画廊上有什么全在这
 │   ├── data/terms.js           # ★ 站级术语数据（词典与各案例共用的唯一数据源）
-│   ├── data/interview.js       # ★ 面试题库数据（分类 / 题目 / 考察点 / 要点）
+│   ├── data/interview.js       # ★ 面试题库数据（分类 / 专题 / 题目 / 考察点 / 要点）
 │   ├── ui/gallery.js           #   首页渲染（入口计数 / 案例卡片）
 │   ├── ui/dictionary.js        #   词典页渲染（搜索 + 分类 + 分组列表）
 │   ├── ui/interview.js         #   面试题页渲染（搜索 + 分类 + 手风琴 + 深链）
@@ -99,8 +99,9 @@ ai-pm-handbook/                 # 仓库根 = 画廊首页
 { cat: "方法论", def: "定义", case: "项目案例",
   tech: ["技术解析和应用"], modules: ["m05"], related: ["MVP"] }
 
-// 面试题（站级 js/data/interview.js）：四字段，H.quiz 数组 + H.quizCats 分类表
-{ cat: "需求分析", q: "题目原文",
+// 面试题（站级 js/data/interview.js）：五字段，H.quiz 数组 + H.quizCats 分类表
+{ cat: "需求分析", topic: "所属问答稿专题（渲染为题号旁标签）",
+  q: "题目原文",
   focus: "考察点（面试官想听什么）",
   points: ["答题要点，支持 **加粗** 与 [[术语]]（点击开抽屉）"] }
 ```
