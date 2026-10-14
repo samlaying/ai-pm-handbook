@@ -76,7 +76,10 @@
       if (caseCount) caseCount.textContent = live + " 个已上线 · " + soon + " 个规划中";
       if (termCount) termCount.textContent = terms + " 个术语 · 定义 / 项目案例 / 技术解析";
       if (quizCount && H.quiz) {
-        quizCount.textContent = H.quiz.length + " 道题 · " + (H.quizCats || []).length + " 大类考点";
+        var scripts = {};
+        H.quiz.forEach(function (q) { if (q.topic) scripts[q.topic] = 1; });
+        var n = Object.keys(scripts).length || 1;
+        quizCount.textContent = H.quiz.length + " 问 · " + n + " 套问答稿";
       }
 
       /* 滚动淡入 */
