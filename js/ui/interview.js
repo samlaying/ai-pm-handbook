@@ -171,7 +171,6 @@
           })
         ]));
       });
-
       if (!matched.length) {
         list.appendChild(el("p", { class: "qa-empty", text: "没有匹配的题目，换个关键词试试。" }));
       }
@@ -192,13 +191,17 @@
       });
     },
 
-    /* —— 单张手风琴题卡：scriptNo 为稿内序号，label 可覆盖显示（如「速记」） —— */
+    /* —— 手风琴题卡：主问题（role:main）大卡，追问为小圆点条目，label 可覆盖题号 —— */
     renderItem: function renderItem(entry, scriptNo) {
       var item = entry.item;
+      var isMain = item.role === "main";
       var noText = item.label || "Q" + scriptNo;
 
+      var focusHTML = "<strong>考察点</strong> · " + fmt(item.focus) +
+        (!isMain && item.cat ? ' <span class="qa-focus-cat">' + H.dom.escapeHTML(item.cat) + "</span>" : "");
+
       return el("article", {
-        class: "qa-item",
+        class: "qa-item" + (isMain ? "" : " is-mini"),
         attrs: { "data-qno": entry.no }
       }, [
         el("h4", {}, [
@@ -206,8 +209,9 @@
             class: "qa-head",
             attrs: { type: "button", "aria-expanded": "false" }
           }, [
+            !isMain ? el("span", { class: "qa-dot", attrs: { "aria-hidden": "true" } }) : null,
             el("span", { class: "qa-no", text: noText }),
-            item.cat
+            isMain && item.cat
               ? el("span", { class: "qa-chip", text: item.cat })
               : null,
             el("span", { class: "qa-q", text: item.q }),
@@ -221,7 +225,7 @@
         el("div", { class: "qa-body" }, [
           el("div", { class: "qa-body-in" }, [
             el("div", { class: "qa-body-pad" }, [
-              el("p", { class: "qa-focus", html: "<strong>考察点</strong> · " + fmt(item.focus) }),
+              el("p", { class: "qa-focus", html: focusHTML }),
               el("ul", { class: "qa-points" }, item.points.map(function (point) {
                 return el("li", { html: fmt(point) });
               }))

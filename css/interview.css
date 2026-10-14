@@ -119,6 +119,41 @@
 .qa-item.is-open .qa-toggle { transform: rotate(45deg); color: var(--accent); }
 .qa-head:hover .qa-toggle { color: var(--accent); }
 
+/* —— 追问：小圆点紧凑条目（主问题 role:main 保持大卡） —— */
+.qa-item.is-mini .qa-head { padding: 8px 4px 8px 0; gap: 10px; }
+
+.qa-dot {
+  flex: none; align-self: center;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); opacity: 0.7;
+}
+
+.qa-item.is-mini .qa-no { min-width: 0; font-size: 11px; color: var(--ink-soft); }
+
+.qa-item.is-mini .qa-q {
+  font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1.6;
+}
+
+.qa-item.is-mini .qa-toggle { width: 16px; height: 16px; }
+.qa-item.is-mini .qa-toggle svg { width: 16px; height: 16px; }
+
+.qa-item.is-mini .qa-body-pad { padding: 0 4px 18px 38px; }
+
+.qa-item.is-mini .qa-focus { margin-bottom: 10px; padding: 8px 12px; }
+
+.qa-item.is-mini .qa-points li {
+  font-size: 14px; line-height: 1.75; margin-bottom: 8px; padding-left: 14px;
+}
+
+.qa-item.is-mini .qa-points li::before { top: 1px; }
+
+/* 追问的分类标签挪进考察点行（题头只留小圆点 + 题号 + 题目） */
+.qa-focus-cat {
+  display: inline-block; margin-left: 6px; padding: 1px 8px;
+  border: 1px dashed var(--line); border-radius: 999px;
+  font-size: 11px; color: var(--ink-soft); white-space: nowrap;
+}
+
 /* 展开区：grid 0fr→1fr 折叠动画 */
 .qa-body {
   display: grid;
