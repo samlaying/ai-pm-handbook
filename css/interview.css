@@ -119,6 +119,18 @@
 .qa-item.is-open .qa-toggle { transform: rotate(45deg); color: var(--accent); }
 .qa-head:hover .qa-toggle { color: var(--accent); }
 
+/* —— 追问细分点：缩进挂到主问题下，竖向引导线形成层级 —— */
+.qa-subs {
+  margin-left: 48px;
+  border-left: 1px solid var(--line);
+}
+
+.qa-subs .qa-head { padding-left: 14px; }
+
+.qa-subs .qa-body-pad { padding-left: 44px; }
+
+.qa-subs .qa-item:first-child .qa-head { padding-top: 6px; }
+
 /* —— 追问：小圆点紧凑条目（主问题 role:main 保持大卡） —— */
 .qa-item.is-mini .qa-head { padding: 8px 4px 8px 0; gap: 10px; }
 
@@ -207,6 +219,7 @@
 /* —— 移动端 —— */
 @media (max-width: 880px) {
   .quiz-layout { display: block; }
+  .qa-subs { margin-left: 16px; }
 }
 
 @media (max-width: 640px) {
@@ -215,6 +228,8 @@
   .qa-body-pad { padding-left: 0; }
   .qa-no { min-width: 26px; }
   .qa-chip { display: none; }   /* 小屏题头空间有限，分类标签让位给题目本身 */
+  .qa-subs { margin-left: 14px; }
+  .qa-subs .qa-body-pad { padding-left: 0; }
 }
 
 /* —— 减少动态效果 —— */

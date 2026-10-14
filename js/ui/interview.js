@@ -161,14 +161,31 @@
       }
 
       groups.forEach(function (group) {
+        /* 稿内统一编号，再按主问题 / 追问拆分：追问作为主问题下的细分点 */
+        var numbered = group.items.map(function (entry, idx) {
+          return { entry: entry, no: idx + 1 };
+        });
+        var mains = numbered.filter(function (x) { return x.entry.item.role === "main"; });
+        var subs = numbered.filter(function (x) { return x.entry.item.role !== "main"; });
+
+        var children = [];
+        if (mains.length) {
+          mains.forEach(function (x) { children.push(self.renderItem(x.entry, x.no)); });
+          if (subs.length) {
+            children.push(el("div", { class: "qa-subs" }, subs.map(function (x) {
+              return self.renderItem(x.entry, x.no);
+            })));
+          }
+        } else {
+          numbered.forEach(function (x) { children.push(self.renderItem(x.entry, x.no)); });
+        }
+
         list.appendChild(el("section", { class: "qa-group" }, [
           el("h3", {}, [
             group.topic,
             el("span", { class: "group-count", text: group.items.length + " 问" })
           ]),
-          group.items.map(function (entry, idx) {
-            return self.renderItem(entry, idx + 1);
-          })
+          children
         ]));
       });
       if (!matched.length) {
