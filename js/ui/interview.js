@@ -189,11 +189,17 @@
           numbered.forEach(function (x) { children.push(self.renderItem(x.entry, x.no)); });
         }
 
+        /* 稿前导语：注册表里带 lede 的稿渲染在分组标题下 */
+        var lede = (H.quizTopics || []).filter(function (t) { return t.title === group.topic; })[0];
+
         list.appendChild(el("section", { class: "qa-group" }, [
           el("h3", {}, [
             self.topicLabel(group.topic),
             el("span", { class: "group-count", text: group.items.length + " 问" })
           ]),
+          lede && lede.lede
+            ? el("p", { class: "qa-group-lede", html: fmt(lede.lede) })
+            : null,
           children
         ]));
       });
