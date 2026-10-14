@@ -89,11 +89,15 @@
         return { name: name, entry: entry };
       });
 
-      var matched = entries.filter(function (item) {
-        if (cat !== "全部" && item.entry.cat !== cat) return false;
+      /* 先按搜索筛（侧栏计数用它：不随当前选中分类清零），再按分类筛出列表 */
+      var byQuery = entries.filter(function (item) {
         if (!query) return true;
         var haystack = (item.name + " " + (item.entry.def || "") + " " + (item.entry.case || "")).toLowerCase();
         return haystack.indexOf(query) !== -1;
+      });
+
+      var matched = byQuery.filter(function (item) {
+        return cat === "全部" || item.entry.cat === cat;
       });
 
       /* 分组渲染（选择具体分类时只渲染该组，不重复组标题） */
@@ -141,9 +145,10 @@
       this.rail.querySelectorAll("[data-cat-count]").forEach(function (node) {
         var railCat = node.getAttribute("data-cat-count");
         var n = railCat === "全部"
-          ? matched.length
-          : matched.filter(function (item) { return item.entry.cat === railCat; }).length;
+          ? byQuery.length
+          : byQuery.filter(function (item) { return item.entry.cat === railCat; }).length;
         node.textContent = String(n);
+        node.closest(".rail-item").classList.toggle("is-zero", n === 0);
       });
     }
   };

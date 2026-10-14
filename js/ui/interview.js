@@ -151,11 +151,15 @@
         return { no: i + 1, item: item };
       });
 
-      var matched = entries.filter(function (entry) {
-        if (topic !== "全部" && topicOf(entry.item) !== topic) return false;
+      /* 先按搜索筛（侧栏计数用它：不随当前选中话题清零），再按话题筛出列表 */
+      var byQuery = entries.filter(function (entry) {
         if (!query) return true;
         var haystack = (entry.item.q + " " + topicOf(entry.item) + " " + self.topicLabel(topicOf(entry.item)) + " " + (entry.item.cat || "") + " " + entry.item.focus + " " + entry.item.points.join(" ")).toLowerCase();
         return haystack.indexOf(query) !== -1;
+      });
+
+      var matched = byQuery.filter(function (entry) {
+        return topic === "全部" || topicOf(entry.item) === topic;
       });
 
       /* 按问答稿分组渲染（选择某稿时只渲染该组） */
@@ -216,8 +220,8 @@
       this.rail.querySelectorAll("[data-topic-count]").forEach(function (node) {
         var railTopic = node.getAttribute("data-topic-count");
         var n = railTopic === "全部"
-          ? matched.length
-          : matched.filter(function (entry) { return topicOf(entry.item) === railTopic; }).length;
+          ? byQuery.length
+          : byQuery.filter(function (entry) { return topicOf(entry.item) === railTopic; }).length;
         node.textContent = String(n);
         node.closest(".rail-item").classList.toggle("is-zero", n === 0);
       });
