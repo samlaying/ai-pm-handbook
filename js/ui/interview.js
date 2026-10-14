@@ -55,20 +55,29 @@
           class: "rail-item" + (cat === "全部" ? " is-active" : ""),
           attrs: { type: "button", "data-topic": cat, "aria-pressed": cat === "全部" ? "true" : "false" }
         }, [
-          el("span", { class: "rail-name", text: cat }),
+          el("span", { class: "rail-name", text: cat === "全部" ? cat : self.topicLabel(cat) }),
           el("span", { class: "rail-count", attrs: { "data-topic-count": cat }, text: "" })
         ]));
       });
     },
 
-    /* 题库里出现的问答稿主题（保持出现顺序） */
+    /* 题库里的问答稿列表：优先用注册表（带序号），未注册的主题按出现顺序补在后面 */
     topics: function topics() {
       var seen = [];
+      (H.quizTopics || []).forEach(function (t) {
+        if (seen.indexOf(t.title) === -1) seen.push(t.title);
+      });
       (H.quiz || []).forEach(function (item) {
         var t = topicOf(item);
         if (seen.indexOf(t) === -1) seen.push(t);
       });
       return seen;
+    },
+
+    /* 展示标题：注册过的带序号（如「二、××」），未注册的原样 */
+    topicLabel: function topicLabel(topic) {
+      var hit = (H.quizTopics || []).filter(function (t) { return t.title === topic; })[0];
+      return hit && hit.no ? hit.no + "、" + topic : topic;
     },
 
     bindTools: function bindTools() {
@@ -145,7 +154,7 @@
       var matched = entries.filter(function (entry) {
         if (topic !== "全部" && topicOf(entry.item) !== topic) return false;
         if (!query) return true;
-        var haystack = (entry.item.q + " " + topicOf(entry.item) + " " + (entry.item.cat || "") + " " + entry.item.focus + " " + entry.item.points.join(" ")).toLowerCase();
+        var haystack = (entry.item.q + " " + topicOf(entry.item) + " " + self.topicLabel(topicOf(entry.item)) + " " + (entry.item.cat || "") + " " + entry.item.focus + " " + entry.item.points.join(" ")).toLowerCase();
         return haystack.indexOf(query) !== -1;
       });
 
@@ -182,7 +191,7 @@
 
         list.appendChild(el("section", { class: "qa-group" }, [
           el("h3", {}, [
-            group.topic,
+            self.topicLabel(group.topic),
             el("span", { class: "group-count", text: group.items.length + " 问" })
           ]),
           children
